@@ -2,13 +2,20 @@ let _repository = null;
 
 const errorsFunctions = require("../utils/errorHttp");
 
-const { CODE_NOT_FOUND, CODE_OK } = require("../constants/httpCodes");
+const {
+  CODE_NOT_FOUND,
+  CODE_OK,
+  CODE_BAD_REQUEST
+} = require("../constants/httpCodes");
+
 const {
   MESS_EMPTY_ID,
   MESS_ID_NOT_FOUND,
   MESS_OK_GET,
   MESS_OK_PUT,
-  MESS_ERROR_PUT
+  MESS_ERROR_PUT,
+  MESS_DUPLICATE_EMAIL,
+  MESS_DUPLICATE_USER
 } = require("../constants/errorMessages");
 
 class BaseService {
@@ -32,7 +39,31 @@ class BaseService {
 
   async getAll() {}
 
-  async create() {}
+  async create(entity) {
+    const entityCreated = await _repository.create(entity);
+
+    if (entityCreated.status != CODE_OK) {
+      //If email or user exists then return error
+
+      if (entityCreated.result === MESS_DUPLICATE_EMAIL) {
+        return errorsFunctions.error(
+          CODE_BAD_REQUEST,
+          entityCreated.result,
+          MESS_DUPLICATE_EMAIL
+        );
+      }
+
+      if (entityCreated.result === MESS_DUPLICATE_USER) {
+        return errorsFunctions.error(
+          CODE_BAD_REQUEST,
+          entityCreated.result,
+          MESS_DUPLICATE_USER
+        );
+      }
+    }
+
+    return entityCreated;
+  }
 
   async update(id, idName, entity) {
     if (errorsFunctions.emptyId(id)) {
@@ -40,7 +71,6 @@ class BaseService {
     }
 
     const currentEntity = await _repository.get(id);
-
 
     if (errorsFunctions.notFoundEntity(currentEntity)) {
       return errorsFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);

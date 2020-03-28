@@ -12,18 +12,35 @@ class BaseRepository {
   }
 
   async create(entity) {
-    return await this.model.create(entity);
+    return await this.model
+      .create(entity, { isNewRecord: true })
+      .then(result => {
+        const response = {
+          status: 200,
+          result: result
+        };
+
+        return response;
+      })
+      .catch(err => {
+        const response = {
+          status: 404,
+          result: err.errors[0].path
+        };
+        
+        return response;
+      });
   }
 
   async update(id, entity, idName) {
     return await this.model
-      .update(entity, { where: idName})
+      .update(entity, { where: idName })
       .then(() => {
         const updatedEntity = this.model.findByPk(id);
 
         return updatedEntity;
       })
-      .catch(err => {
+      .catch(() => {
         return null;
       });
   }
