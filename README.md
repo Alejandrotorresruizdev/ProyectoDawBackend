@@ -1,2 +1,1 @@
-# ProyectoDawBackend
-Parte de backend del proyecto del GS de aplicaciones web 
+# (Backend) Proyecto final del Grado Superior Desarrollo de aplicaciones multiplataforma
