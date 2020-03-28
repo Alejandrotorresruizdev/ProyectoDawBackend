@@ -15,8 +15,17 @@ class BaseRepository {
     return await this.model.create(entity);
   }
 
-  async update(id, entity) {
-    return await this.model.findByIdAndUpdate(id, entity, { new: true });
+  async update(id, entity, idName) {
+    return await this.model
+      .update(entity, { where: idName})
+      .then(() => {
+        const updatedEntity = this.model.findByPk(5);
+
+        return updatedEntity;
+      })
+      .catch(err => {
+        return null;
+      });
   }
 
   async delete(id) {

@@ -35,7 +35,7 @@ container
     User: asValue(User)
   })
   .register({
-    UserController: asClass(UserController.bind(UserController)).singleton()
+    UserController: asClass(UserController).singleton()
   })
   .register({
     UserService: asClass(UserService).singleton()

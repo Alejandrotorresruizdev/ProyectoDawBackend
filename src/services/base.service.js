@@ -1,6 +1,6 @@
 let _repository = null;
 
-const errorHttp = require("../utils/errorHttp");
+const errorsFunctions = require("../utils/errorHttp");
 
 class BaseService {
   constructor(repository) {
@@ -8,14 +8,15 @@ class BaseService {
   }
 
   async get(id) {
-    if (!id) {
-      return errorHttp(400, "El id no puede ir vacío");
+    
+    if(errorsFunctions.emptyId(id)){
+      return errorsFunctions.error(400, "El id no puede ir vacío");
     }
 
     const currentEntity = await _repository.get(id);
 
-    if (!currentEntity) {
-      return errorHttp(404, "El id no existe");
+    if(errorsFunctions.notFoundEntity(currentEntity)){
+      return errorsFunctions.error(404, "La entidad no existe");
     }
 
     return currentEntity;
@@ -25,7 +26,27 @@ class BaseService {
 
   async create() {}
 
-  async update() {}
+  async update(id,idName,entity) {
+
+    if(errorsFunctions.emptyId(id)){
+      return errorsFunctions.error(400, "El id no puede ir vacío");
+    }
+
+    const currentEntity = await _repository.get(id);
+
+    if(errorsFunctions.notFoundEntity(currentEntity)){
+      return errorsFunctions.error(404, "La entidad no existe");
+    }
+
+    const updatedEntity = await _repository.update(id,entity,idName);
+
+    if(updatedEntity){
+      return errorsFunctions.error(200, "Entidad actualizada correctamente",updatedEntity);
+    }
+
+    return errorsFunctions.error(404, "Error en la actualización de la entidad");
+
+  }
 
   async delete() {}
 }

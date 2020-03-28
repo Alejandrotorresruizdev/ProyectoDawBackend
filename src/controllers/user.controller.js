@@ -1,7 +1,7 @@
 const BaseController = require('./base.controller');
 let _userService = null;
 
-class UserController  {
+class UserController{
 
     constructor({ UserService }) {
         _userService = UserService
@@ -13,6 +13,15 @@ class UserController  {
 
         return res.send(user);
     }
+
+    async update (req,res){
+        const {idusuario} = req.params;
+        const entity = req.body;
+        const userUpdated = await _userService.update(idusuario,req.params,entity);
+        
+        return await res.status(userUpdated.status).send(userUpdated);
+    }
+
 }
 
 module.exports = UserController;
