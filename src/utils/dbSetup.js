@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
 const container = require('../startup/container');
-// const {MYSQL_URI,MYSQL_DB} = container.resolve('config');
+const {MYSQL_URI,MYSQL_DB,MYSQL_USER,MYSQL_PASS} = require('../utils');
 
-const sequelize = new Sequelize('mydb','alejandro', 'kanaka123', {
-    host: 'localhost',
+const sequelize = new Sequelize(MYSQL_DB,MYSQL_USER, MYSQL_PASS, {
+    host: MYSQL_URI,
     dialect: 'mysql' /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
     logging: false
   });
