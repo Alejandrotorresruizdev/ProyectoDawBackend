@@ -19,7 +19,7 @@ class BaseRepository {
     return await this.model
       .update(entity, { where: idName})
       .then(() => {
-        const updatedEntity = this.model.findByPk(5);
+        const updatedEntity = this.model.findByPk(id);
 
         return updatedEntity;
       })
