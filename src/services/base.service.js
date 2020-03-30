@@ -5,7 +5,7 @@ const errorsFunctions = require("../utils/errorHttp");
 const {
   CODE_NOT_FOUND,
   CODE_OK,
-  CODE_BAD_REQUEST
+  CODE_BAD_REQUEST,CODE_CREATED
 } = require("../constants/httpCodes");
 
 const {
@@ -45,24 +45,16 @@ class BaseService {
     if (entityCreated.status != CODE_OK) {
       //If email or user exists then return error
 
-      if (entityCreated.result === MESS_DUPLICATE_EMAIL) {
         return errorsFunctions.error(
           CODE_BAD_REQUEST,
-          entityCreated.result,
-          MESS_DUPLICATE_EMAIL
+          entityCreated.result
         );
-      }
-
-      if (entityCreated.result === MESS_DUPLICATE_USER) {
-        return errorsFunctions.error(
-          CODE_BAD_REQUEST,
-          entityCreated.result,
-          MESS_DUPLICATE_USER
-        );
-      }
     }
 
-    return entityCreated;
+    return errorsFunctions.error(
+      CODE_CREATED,
+      entityCreated.result
+    );
   }
 
   async update(id, idName, entity) {

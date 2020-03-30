@@ -5,14 +5,14 @@ const config = require("../utils");
 const server = require("./index");
 
 // services
-const { UserService } = require("../services");
+const { UserService,AuthService} = require("../services");
 
 // controllers
-const { UserController } = require("../controllers");
+const { UserController, AuthController } = require("../controllers");
 
 // routes
-const { UserRoutes } = require("../routes/index.routes");
-const Routes = require('../routes');
+const { UserRoutes,AuthRoutes} = require("../routes/index.routes");
+const Routes = require("../routes");
 
 // models
 const { User } = require("../models");
@@ -26,19 +26,22 @@ container
   .register({
     server: asClass(server).singleton(),
     config: asValue(config),
-    router : asFunction(Routes).singleton()
+    router: asFunction(Routes).singleton()
   })
   .register({
-    UserRoutes: asFunction(UserRoutes).singleton()
+    UserRoutes: asFunction(UserRoutes).singleton(),
+    AuthRoutes: asFunction(AuthRoutes).singleton()
   })
   .register({
     User: asValue(User)
   })
   .register({
-    UserController: asClass(UserController).singleton()
+    UserController: asClass(UserController).singleton(),
+    AuthController: asClass(AuthController).singleton()
   })
   .register({
-    UserService: asClass(UserService).singleton()
+    UserService: asClass(UserService).singleton(),
+    AuthService: asClass(AuthService).singleton()
   })
   .register({
     UserRepository: asClass(UserRepository).singleton()

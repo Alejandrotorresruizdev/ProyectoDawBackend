@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const compression = require("compression");
 require("express-async-errors");
 
-module.exports = function({UserRoutes}) {
+module.exports = function({UserRoutes,AuthRoutes}) {
   const router = express.Router();
   const apiRoutes = express.Router();
 
@@ -17,6 +17,7 @@ module.exports = function({UserRoutes}) {
     
   // Model path
   apiRoutes.use('/user',UserRoutes);
+  apiRoutes.use('/auth',AuthRoutes);
 
   // Base api path
   router.use('/v1/api', apiRoutes);
