@@ -1,3 +1,6 @@
+
+const {CODE_OK,CODE_NOT_FOUND} = require('../constants/httpCodes');
+
 class BaseRepository {
   constructor(model) {
     this.model = model;
@@ -16,7 +19,7 @@ class BaseRepository {
       .create(entity, { isNewRecord: true })
       .then(result => {
         const response = {
-          status: 200,
+          status: CODE_OK,
           result: result
         };
 
@@ -24,7 +27,7 @@ class BaseRepository {
       })
       .catch(err => {
         const response = {
-          status: 404,
+          status: CODE_NOT_FOUND,
           result: err.errors[0].path
         };
         

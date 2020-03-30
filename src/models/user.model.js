@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
-
 const sequelize = require("../utils/dbSetup");
+
+const { compareSync, hashSync, genSaltSync } = require("bcryptjs");
 
 const User = sequelize.define("usuarios", {
   idusuario: {
@@ -36,6 +37,13 @@ const User = sequelize.define("usuarios", {
       notNull: { msg: "El rol de usuario es obligatorio" }
     }
   }
+});
+
+User.beforeCreate(async (user) => {
+  const salt = await genSaltSync(10);
+  const hashedPassword = await hashSync(user.password, salt);
+  console.log(hashedPassword);
+  user.password = hashedPassword;
 });
 
 module.exports = User;
