@@ -4,9 +4,11 @@ const sequelize = require("../utils/dbSetup");
 const { compareSync, hashSync, genSaltSync } = require("bcryptjs");
 
 const User = sequelize.define("usuarios", {
-  idusuario: {
+  id: {
+    field: 'idusuario',
     type: DataTypes.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   full_name: {
     type: DataTypes.STRING,

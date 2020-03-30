@@ -1,10 +1,11 @@
 const errorsFunctions = {};
 
-errorsFunctions.error = (statusCode, message,entity) => {
+errorsFunctions.error = (statusCode, message,entity,token) => {
   const error = new Error();
   error.status = statusCode;
   error.message = message;
   error.body = entity;
+  error.token = token;
   return error;
 };
 

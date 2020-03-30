@@ -8,6 +8,11 @@ class UserService extends BaseService {
         super(UserRepository)
         _userRepository = UserRepository;
     }
+
+    async getUserByEmail (body) {
+        const entity = await _userRepository.getUserByEmail(body);
+        return entity;
+    }
 }
 
 module.exports = UserService;

@@ -1,5 +1,4 @@
-
-const {CODE_OK,CODE_NOT_FOUND} = require('../constants/httpCodes');
+const { CODE_OK, CODE_NOT_FOUND } = require("../constants/httpCodes");
 
 class BaseRepository {
   constructor(model) {
@@ -30,14 +29,15 @@ class BaseRepository {
           status: CODE_NOT_FOUND,
           result: err.errors[0].path
         };
-        
+
         return response;
       });
   }
 
-  async update(id, entity, idName) {
+  async update(id, entity) {
+    console.log(id);
     return await this.model
-      .update(entity, { where: idName })
+      .update(entity, { where: { id: id } })
       .then(() => {
         const updatedEntity = this.model.findByPk(id);
 
