@@ -5,6 +5,7 @@ module.exports = function({AuthController}) {
 
     router.post('/signIn', AuthController.signIn);
     router.post('/signUp', AuthController.signUp)
+    router.post('/recovery-password/:email', AuthController.recoveryPassword)
 
     return router;
 }

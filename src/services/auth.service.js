@@ -1,6 +1,7 @@
 let _userService = null;
 const errorsFunctions = require("../utils/errorHttp");
 const jwtFunctions = require("../utils/jwt");
+const mailerFunctions = require("../utils/mailer.utils");
 
 const {
   CODE_OK,
@@ -9,7 +10,11 @@ const {
   CODE_BAD_REQUEST
 } = require("../constants/httpCodes");
 
-const { MESS_OK_POST, MESS_ERROR_POST } = require("../constants/errorMessages");
+const {
+  MESS_OK_POST,
+  MESS_ERROR_POST,
+  MESS_ID_NOT_FOUND
+} = require("../constants/errorMessages");
 const { compareSync, hashSync, genSaltSync } = require("bcryptjs");
 
 class AuthService {
@@ -69,6 +74,28 @@ class AuthService {
       CODE_NOT_FOUND,
       "Las credenciales son incorrectas"
     );
+  }
+
+  async recoveryPassword(email) {
+    if (errorsFunctions.emptyId(email)) {
+      return errorsFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    }
+
+    const currentEntity = await _userService.getUserByEmail(email);
+
+    if (errorsFunctions.notFoundEntity(currentEntity.length)) {
+      return errorsFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+    }
+
+    const recoveryPassword = await mailerFunctions.send("54544545",currentEntity[0].email);
+    console.log(recoveryPassword)
+
+    if(recoveryPassword){
+      return "Contraseña restablecida"
+    }else{
+      return "Contraseña no restablecida"
+    }
+    return recoveryPassword;
   }
 }
 
