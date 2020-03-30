@@ -87,15 +87,26 @@ class AuthService {
       return errorsFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
     }
 
-    const recoveryPassword = await mailerFunctions.send("54544545",currentEntity[0].email);
-    console.log(recoveryPassword)
+    // Genero una nueva password
+    const randomPassword = await jwtFunctions.generateRandomPassword();
 
-    if(recoveryPassword){
-      return "Contraseña restablecida"
+    // Encrypto la nueva contraseña 
+    const hashedPassword = await jwtFunctions.hashedPassword(randomPassword);
+
+    // Actualizo la contraseña del objeto entity por la nuva contraseña generada
+    currentEntity[0].password = await hashedPassword;
+
+    // Actualizo la password en la base de datos
+    const recoveryPasswordUpdated = await _userService.update(currentEntity[0].id,'',{password : currentEntity[0].password})
+
+    // Envío un correo al usuario con una nueva password
+    const recoveryPasswordMail = await mailerFunctions.send(randomPassword,currentEntity[0].email);
+
+    if(recoveryPasswordMail){
+      return recoveryPasswordUpdated;
     }else{
       return "Contraseña no restablecida"
     }
-    return recoveryPassword;
   }
 }
 

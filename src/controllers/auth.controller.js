@@ -26,7 +26,7 @@ class AuthController {
 
     const recoveryPassword = await _authService.recoveryPassword(email);
 
-    return res.send(recoveryPassword);
+    return res.status(200).send(recoveryPassword);
   }
 
   async resetPassword() {}

@@ -10,18 +10,15 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-
 mailerFunctions.send = async (recovery_password_token, email) => {
   let sent = "dddd";
 
   contentHTML = `
-  <h1>User Information</h1>
-  <ul>
-      <li>Username: </li>
-      <li>User Email: </li>
-      <li>PhoneNumber: </li>
-  </ul>
-`;
+    <h1>Recuperación de contraseña</h1>
+    <ul>
+    Nueva contraseña :${recovery_password_token}
+    </ul>
+  `;
 
   var mailOptionsObject = {
     from: "Comparte la historia",
