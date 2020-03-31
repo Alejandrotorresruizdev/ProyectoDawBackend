@@ -1,7 +1,7 @@
 const container = require('./src/startup/container');
 
 const server = container.resolve('server');
-const sequelize = require('./src/utils/dbSetup');
+const sequelize = require('./src/utils/dbSetup.utils');
 
 
 sequelize.authenticate().then(()=>{

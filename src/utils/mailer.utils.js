@@ -11,7 +11,6 @@ let transporter = nodemailer.createTransport({
 });
 
 mailerFunctions.send = async (recovery_password_token, email) => {
-  let sent = "dddd";
 
   contentHTML = `
     <h1>Recuperación de contraseña</h1>

@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../utils/dbSetup");
+const sequelize = require("../utils/dbSetup.utils");
 
 const { compareSync, hashSync, genSaltSync } = require("bcryptjs");
 

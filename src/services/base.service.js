@@ -74,7 +74,6 @@ class BaseService {
       return errorsFunctions.error(CODE_OK, MESS_OK_PUT, updatedEntity);
     }
     
-    //return errorsFunctions.error(CODE_NOT_FOUND, MESS_ERROR_PUT);
   }
 
   async delete() {}
