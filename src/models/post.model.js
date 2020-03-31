@@ -1,10 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../utils/dbSetup.utils");
-
+const { User } = require("./index");
 
 const Post = sequelize.define("usuarios", {
   id: {
-    field: 'idpublicacion',
+    field: "idpublicacion",
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -30,6 +30,10 @@ const Post = sequelize.define("usuarios", {
   usuarios_idusuarios: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: User,
+      key: "id"
+    },
     validate: {
       notNull: { msg: "El id de usuario es obligatorio" }
     }
