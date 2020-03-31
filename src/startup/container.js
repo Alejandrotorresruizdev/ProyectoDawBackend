@@ -8,10 +8,10 @@ const server = require("./index");
 const { UserService,AuthService} = require("../services");
 
 // controllers
-const { UserController, AuthController } = require("../controllers");
+const { UserController, AuthController,CommentController } = require("../controllers");
 
 // routes
-const { UserRoutes,AuthRoutes} = require("../routes/index.routes");
+const { UserRoutes,AuthRoutes,CommentRoutes} = require("../routes/index.routes");
 const Routes = require("../routes");
 
 // models
@@ -30,14 +30,16 @@ container
   })
   .register({
     UserRoutes: asFunction(UserRoutes).singleton(),
-    AuthRoutes: asFunction(AuthRoutes).singleton()
+    AuthRoutes: asFunction(AuthRoutes).singleton(),
+    CommentRoutes : asFunction(CommentRoutes).singleton()
   })
   .register({
     User: asValue(User)
   })
   .register({
     UserController: asClass(UserController).singleton(),
-    AuthController: asClass(AuthController).singleton()
+    AuthController: asClass(AuthController).singleton(),
+    CommentController : asClass(CommentController).singleton()
   })
   .register({
     UserService: asClass(UserService).singleton(),
