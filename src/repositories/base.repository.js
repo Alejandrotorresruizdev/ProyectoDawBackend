@@ -1,20 +1,23 @@
 const { CODE_OK, CODE_NOT_FOUND } = require("../constants/httpCodes");
 
+let _model = null;
+
 class BaseRepository {
   constructor(model) {
-    this.model = model;
+    _model = model;
   }
 
   async get(id) {
-    return await this.model.findByPk(id);
+    console.log(_model)
+    return await _model.findByPk(id);
   }
 
   async getAll() {
-    return await this.model.findAll();
+    return await _model.findAll();
   }
 
   async create(entity) {
-    return await this.model
+    return await _model
       .create(entity, { isNewRecord: true })
       .then(result => {
         const response = {
@@ -35,10 +38,10 @@ class BaseRepository {
   }
 
   async update(id, entity) {
-    return await this.model
+    return await _model
       .update(entity, { where: { id: id } })
       .then(() => {
-        const updatedEntity = this.model.findByPk(id);
+        const updatedEntity = _model.findByPk(id);
 
         return updatedEntity;
       })
@@ -48,7 +51,7 @@ class BaseRepository {
   }
 
   async delete(id) {
-    return await this.model.findByIdAndDelete(id);
+    return await _model.findByIdAndDelete(id);
   }
 }
 

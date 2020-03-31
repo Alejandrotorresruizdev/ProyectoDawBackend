@@ -9,7 +9,7 @@ const {
 } = require("../constants/httpCodes");
 
 module.exports = (req, res, next) => {
-  const token = req.headers["Authorization"];
+  const token = req.headers["authorization"];
   if (!token) {
     return res.send(errorsFunctions.error(CODE_BAD_REQUEST, "El token debe ser enviado"));
   }
@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
       return res.send(errorsFunctions.error(CODE_UNAUTHORIZED, "El token no es válido"));
     }
 
-    req.user = decodedToken.user;
+    // req.user = decodedToken.user;
     next();
   });
 };

@@ -10,7 +10,7 @@ class AuthController {
 
     const createdUser = await _authService.signIn(body);
 
-    return res.status(createdUser.status).send(createdUser);
+    return res.status(200).send(createdUser);
   }
 
   async signUp(req, res) {

@@ -24,6 +24,7 @@ class AuthService {
 
   //Cambiar por signUp
   async signIn(entity) {
+
     const entityCreated = await _userService.create(entity);
 
     if (entityCreated.status === CODE_BAD_REQUEST) {

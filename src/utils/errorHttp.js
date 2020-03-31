@@ -17,7 +17,7 @@ errorsFunctions.emptyId = id => {
 };
 
 errorsFunctions.notFoundEntity = entity => {
-  if (!entity) {
+  if (!entity || entity.length) {
     return true;
   }
   return false;

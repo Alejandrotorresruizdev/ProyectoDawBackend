@@ -8,6 +8,7 @@ class UserController {
 
   async get(req, res) {
     const { id } = req.params;
+    console.log(_userService)
     const user = await _userService.get(id);
 
     return res.send(user);
@@ -15,7 +16,7 @@ class UserController {
 
   async create(req, res) {
     const userCreated = await _userService.create(req.body);
-    return res.status(userCreated.status).send(userCreated);
+    return res.status(200).send(userCreated);
   }
 
   async update(req, res) {

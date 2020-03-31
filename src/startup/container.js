@@ -5,7 +5,7 @@ const config = require("../utils");
 const server = require("./index");
 
 // services
-const { UserService,AuthService} = require("../services");
+const { UserService,AuthService,PostService} = require("../services");
 
 // controllers
 const { UserController, AuthController,CommentController,PostController } = require("../controllers");
@@ -18,7 +18,7 @@ const Routes = require("../routes");
 const { User,Post } = require("../models");
 
 // repositories
-const { UserRepository } = require("../repositories");
+const { UserRepository,PostRepository } = require("../repositories");
 
 const container = createContainer();
 
@@ -46,10 +46,12 @@ container
   })
   .register({
     UserService: asClass(UserService).singleton(),
-    AuthService: asClass(AuthService).singleton()
+    AuthService: asClass(AuthService).singleton(),
+    PostService: asClass(PostService).singleton()
   })
   .register({
-    UserRepository: asClass(UserRepository).singleton()
+    UserRepository: asClass(UserRepository).singleton(),
+    PostRepository : asClass(PostRepository).singleton()
   });
 
 module.exports = container;
