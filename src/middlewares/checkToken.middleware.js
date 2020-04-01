@@ -14,11 +14,11 @@ module.exports = (req, res, next) => {
     return res.send(responseFunctions.error(CODE_BAD_REQUEST, "El token debe ser enviado"));
   }
 
-  jwt.verify(token, JWT_SECRET, function(err) {
+  jwt.verify(token, JWT_SECRET, function(err,decodedToken) {
     if (err) {
       return res.send(responseFunctions.error(CODE_UNAUTHORIZED, "El token no es válido"));
     }
-
+    req.user = decodedToken;
     next();
   });
 };

@@ -6,6 +6,7 @@ module.exports = function({PostController}) {
     router.get('/:id', PostController.get);
     router.get('/:id/all', PostController.getPostByIdUser)
     router.post('', PostController.create);
+    router.put('/:id',PostController.update)
 
     return router;
 }

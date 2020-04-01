@@ -2,19 +2,10 @@ const BaseController = require("./base.controller");
 
 let _postService = null;
 
-class PostController {
+class PostController extends BaseController {
   constructor({ PostService }) {
+    super(PostService);
     _postService = PostService;
-
-  }
-
-  
-
- 
-   get  = async (req, res) => {
-    const {id} = req.params;
-    const getPost = await _postService.get(id);
-    res.status(getPost.status).send(getPost);
   }
 
   async getPostByIdUser(req, res) {
@@ -24,15 +15,6 @@ class PostController {
     res.send(getPostByIdUser);
   }
 
-  async getAll(req, res) {}
-
-  async create(req, res) {
-    const entity = req.body;
-    const postCreated = await _postService.create(entity);
-    res.status(postCreated.status).send(postCreated);
-  }
-
-  async update(req, res) {}
 }
 
 module.exports = PostController;

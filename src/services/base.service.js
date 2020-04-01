@@ -51,7 +51,7 @@ class BaseService {
     );
   }
 
-  async update(id, idName, entity) {
+  async update(id, entity) {
     if (responseFunctions.emptyId(id)) {
       return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     }

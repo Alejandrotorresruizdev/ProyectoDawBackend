@@ -24,7 +24,6 @@ class UserController {
     const entity = req.body;
     const userUpdated = await _userService.update(
       idusuario,
-      req.params,
       entity
     );
 
