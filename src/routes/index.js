@@ -6,7 +6,7 @@ require("express-async-errors");
 
 const { checkTokenMidleware,NotFoundMiddleware,CheckIdUserMidleware } = require('../middlewares');
 
-module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes}) {
+module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes,LikeRoutes}) {
   const router = express.Router();
   const apiRoutes = express.Router();
 
@@ -22,6 +22,7 @@ module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes}) {
   apiRoutes.use('/auth',AuthRoutes);
   apiRoutes.use('/post', [checkTokenMidleware],PostRoutes);
   apiRoutes.use('/comment',CommentRoutes);
+  apiRoutes.use('/like',LikeRoutes);
   
   // Base api path
   router.use('/v1/api', apiRoutes);

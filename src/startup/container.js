@@ -21,12 +21,13 @@ const {
   UserRoutes,
   AuthRoutes,
   CommentRoutes,
-  PostRoutes
+  PostRoutes,
+  LikeRoutes
 } = require("../routes/index.routes");
 const Routes = require("../routes");
 
 // models
-const { User, Post } = require("../models");
+const { User, Post,Like } = require("../models");
 
 // repositories
 const { UserRepository, PostRepository } = require("../repositories");
@@ -43,11 +44,13 @@ container
     UserRoutes: asFunction(UserRoutes).singleton(),
     AuthRoutes: asFunction(AuthRoutes).singleton(),
     CommentRoutes: asFunction(CommentRoutes).singleton(),
-    PostRoutes: asFunction(PostRoutes).singleton()
+    PostRoutes: asFunction(PostRoutes).singleton(),
+    LikeRoutes: asFunction(LikeRoutes).singleton()
   })
   .register({
     User: asValue(User),
-    Post: asValue(Post)
+    Post: asValue(Post),
+    Like: asValue(Like)
   })
   .register({
     UserController: asClass(UserController.bind(UserController)).singleton(),
