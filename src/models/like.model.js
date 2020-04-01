@@ -3,7 +3,7 @@ const sequelize = require("../utils/dbSetup.utils");
 const { User } = require("./index");
 const { Post } = require("./index");
 
-const Like = sequelize.define("publicaciones", {
+const Like = sequelize.define("likes", {
   id: {
     field: "idlike",
     type: DataTypes.INTEGER,
@@ -22,7 +22,7 @@ const Like = sequelize.define("publicaciones", {
       notNull: { msg: "El id de usuario es obligatorio" }
     }
   },
-  publicaciones_idpublicaciones: {
+  publicaciones_idpublicacion: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {

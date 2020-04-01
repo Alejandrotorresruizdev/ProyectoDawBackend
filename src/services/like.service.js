@@ -1,9 +1,10 @@
 const BaseService = require("./base.service");
 
 class LikeService extends BaseService  {
-  constructor() {
-    super(null);
+  constructor({LikeRepository}) {
+    super(LikeRepository);
   }
+  
 
 }
 

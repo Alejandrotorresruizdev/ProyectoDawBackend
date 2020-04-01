@@ -5,6 +5,5 @@ module.exports = function({LikeController}) {
 
     router.post('', LikeController.create);
 
-
     return router;
 }

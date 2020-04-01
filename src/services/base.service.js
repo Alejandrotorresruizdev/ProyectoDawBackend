@@ -38,6 +38,7 @@ class BaseService {
   async getAll() {}
 
   async create(entity) {
+    
     const entityCreated = await this.repository.create(entity);
 
     if (entityCreated.status != CODE_OK) {
