@@ -3,8 +3,8 @@ const BaseController = require('./base.controller');
 
 
 class LikeController extends BaseController {
-    constructor(){
-        super(null)
+    constructor({LikeService}){
+        super(LikeService)
     }
 }
 

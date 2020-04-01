@@ -5,7 +5,7 @@ const config = require("../utils");
 const server = require("./index");
 
 // services
-const { UserService, AuthService, PostService } = require("../services");
+const { UserService, AuthService, PostService,LikeService } = require("../services");
 
 // controllers
 const {
@@ -56,7 +56,7 @@ container
     UserController: asClass(UserController.bind(UserController)).singleton(),
     AuthController: asClass(AuthController.bind(AuthController)).singleton(),
     CommentController: asClass(
-      CommentController.bind(CommentController)
+    CommentController.bind(CommentController)
     ).singleton(),
     PostController: asClass(PostController.bind(PostController)).singleton(),
     LikeController: asClass(LikeController.bind(LikeController)).singleton()
@@ -64,7 +64,8 @@ container
   .register({
     UserService: asClass(UserService).singleton(),
     AuthService: asClass(AuthService).singleton(),
-    PostService: asClass(PostService.bind(PostService)).singleton()
+    PostService: asClass(PostService.bind(PostService)).singleton(),
+    LikeService : asClass(LikeService).singleton()
   })
   .register({
     UserRepository: asClass(UserRepository.bind(UserRepository)).singleton(),
