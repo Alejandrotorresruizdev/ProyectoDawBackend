@@ -6,7 +6,6 @@ class UserService extends BaseService {
 
     constructor({ UserRepository }) {
         super(UserRepository)
-        console.log({UserRepository})
         this.userRepository = UserRepository;
     }
 

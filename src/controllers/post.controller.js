@@ -1,19 +1,24 @@
+const BaseController = require("./base.controller");
 
 let _postService = null;
 
 class PostController {
   constructor({ PostService }) {
-      _postService = PostService;
+    _postService = PostService;
+
   }
 
-  async get(req, res) {
+  
+
+ 
+   get  = async (req, res) => {
     const {id} = req.params;
     const getPost = await _postService.get(id);
     res.status(getPost.status).send(getPost);
   }
 
-  async getPostByIdUser(req,res){
-    const {id} = req.params;
+  async getPostByIdUser(req, res) {
+    const { id } = req.params;
     const getPostByIdUser = await _postService.getPostByIdUser(id);
 
     res.send(getPostByIdUser);

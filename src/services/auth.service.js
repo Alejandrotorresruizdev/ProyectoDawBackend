@@ -1,5 +1,5 @@
 let _userService = null;
-const errorsFunctions = require("../utils/errorHttp");
+const responseFunctions = require("../utils/responseHttp.utils");
 const jwtFunctions = require("../utils/jwt");
 const mailerFunctions = require("../utils/mailer.utils");
 
@@ -28,7 +28,7 @@ class AuthService {
     const entityCreated = await _userService.create(entity);
 
     if (entityCreated.status === CODE_BAD_REQUEST) {
-      return await errorsFunctions.error(
+      return await responseFunctions.error(
         CODE_BAD_REQUEST,
         MESS_ERROR_POST,
         entityCreated.message
@@ -39,7 +39,7 @@ class AuthService {
       entityCreated.message
     );
 
-    return await errorsFunctions.error(
+    return await responseFunctions.error(
       CODE_CREATED,
       MESS_OK_POST,
       entityCreated.message,
@@ -51,7 +51,7 @@ class AuthService {
     const loggedUser = await _userService.getUserByEmail(body.email);
 
     if (!loggedUser.length) {
-      return errorsFunctions.error(
+      return responseFunctions.error(
         CODE_NOT_FOUND,
         "Las credenciales son incorrectas",
         loggedUser
@@ -63,7 +63,7 @@ class AuthService {
     if (checkPassword) {
       const generatedToken = await jwtFunctions.generateToken(loggedUser);
 
-      return errorsFunctions.error(
+      return responseFunctions.error(
         CODE_OK,
         "La credenciales son correctas",
         loggedUser,
@@ -71,21 +71,21 @@ class AuthService {
       );
     }
 
-    return errorsFunctions.error(
+    return responseFunctions.error(
       CODE_NOT_FOUND,
       "Las credenciales son incorrectas"
     );
   }
 
   async recoveryPassword(email) {
-    if (errorsFunctions.emptyId(email)) {
-      return errorsFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    if (responseFunctions.emptyId(email)) {
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     }
 
     const currentEntity = await _userService.getUserByEmail(email);
 
-    if (errorsFunctions.notFoundEntity(currentEntity.length)) {
-      return errorsFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+    if (responseFunctions.notFoundEntity(currentEntity.length)) {
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
     }
 
     // Genero una nueva password
@@ -111,7 +111,7 @@ class AuthService {
     );
 
     if (recoveryPasswordMail) {
-      return errorsFunctions.error(
+      return responseFunctions.error(
         CODE_OK,
         "Contraseña restablecida correctamente"
       );

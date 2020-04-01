@@ -1,4 +1,4 @@
 module.exports = {
-    CheckAuthMidleware : require('./checkAuth.middleware'),
+    checkTokenMidleware : require('./checkToken.middleware'),
     NotFoundMiddleware : require('./not-found.middleware')
 }

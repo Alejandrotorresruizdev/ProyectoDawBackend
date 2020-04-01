@@ -12,7 +12,8 @@ const {
   UserController,
   AuthController,
   CommentController,
-  PostController
+  PostController,
+  BaseController
 } = require("../controllers");
 
 // routes
@@ -59,7 +60,7 @@ container
   .register({
     UserService: asClass(UserService).singleton(),
     AuthService: asClass(AuthService).singleton(),
-    PostService: asClass(PostService).singleton()
+    PostService: asClass(PostService.bind(PostService)).singleton()
   })
   .register({
     UserRepository: asClass(UserRepository.bind(UserRepository)).singleton(),

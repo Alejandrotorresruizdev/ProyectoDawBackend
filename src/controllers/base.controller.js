@@ -1,13 +1,15 @@
 
 class BaseController {
   constructor(service) {
-    this._service = service;
+
+    this.service = service;
   }
 
   async get(req, res) {
     const { id } = req.params;
-    const entity = await this._service.get(id);
-    return res.send(entity);
+    // const entity = await this.service.get(id);
+    console.log(this.service)
+    return res.send(id);
   }
 }
 

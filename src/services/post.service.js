@@ -1,6 +1,6 @@
 const BaseService = require("./base.service");
 
-const errorsFunctions = require("../utils/errorHttp");
+const responseFunctions = require("../utils/responseHttp.utils");
 
 const {
   CODE_NOT_FOUND,
@@ -23,17 +23,17 @@ class PostService extends BaseService  {
 
   async getPostByIdUser(id) {
 
-    if (errorsFunctions.emptyId(id)) {
-        return errorsFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    if (responseFunctions.emptyId(id)) {
+        return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
       }
   
       const currentEntity = await _postRepository.getPostByIdUser(id);
 
       if(currentEntity === []){
-        return errorsFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+        return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
       }
   
-      return errorsFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
+      return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
   }
 }
 
