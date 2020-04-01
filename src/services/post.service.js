@@ -15,7 +15,7 @@ const {
 
 let _postRepository = null;
 
-class PostService extends BaseService {
+class PostService extends BaseService  {
   constructor({ PostRepository }) {
     super(PostRepository);
     _postRepository = PostRepository;

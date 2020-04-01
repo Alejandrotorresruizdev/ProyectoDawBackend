@@ -20,8 +20,8 @@ module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes}) {
   // Model path
   apiRoutes.use('/user', [CheckAuthMidleware],UserRoutes);
   apiRoutes.use('/auth',AuthRoutes);
-  apiRoutes.use('/comment',CommentRoutes);
   apiRoutes.use('/post',PostRoutes);
+  apiRoutes.use('/comment',CommentRoutes);
   
   // Base api path
   router.use('/v1/api', apiRoutes);

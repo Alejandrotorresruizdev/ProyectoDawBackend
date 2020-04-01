@@ -24,11 +24,11 @@ class AuthService {
 
   //Cambiar por signUp
   async signIn(entity) {
-
+    
     const entityCreated = await _userService.create(entity);
 
     if (entityCreated.status === CODE_BAD_REQUEST) {
-      return errorsFunctions.error(
+      return await errorsFunctions.error(
         CODE_BAD_REQUEST,
         MESS_ERROR_POST,
         entityCreated.message
@@ -39,7 +39,7 @@ class AuthService {
       entityCreated.message
     );
 
-    return errorsFunctions.error(
+    return await errorsFunctions.error(
       CODE_CREATED,
       MESS_OK_POST,
       entityCreated.message,

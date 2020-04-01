@@ -5,20 +5,30 @@ const config = require("../utils");
 const server = require("./index");
 
 // services
-const { UserService,AuthService,PostService} = require("../services");
+const { UserService, AuthService, PostService } = require("../services");
 
 // controllers
-const { UserController, AuthController,CommentController,PostController } = require("../controllers");
+const {
+  UserController,
+  AuthController,
+  CommentController,
+  PostController
+} = require("../controllers");
 
 // routes
-const { UserRoutes,AuthRoutes,CommentRoutes,PostRoutes} = require("../routes/index.routes");
+const {
+  UserRoutes,
+  AuthRoutes,
+  CommentRoutes,
+  PostRoutes
+} = require("../routes/index.routes");
 const Routes = require("../routes");
 
 // models
-const { User,Post } = require("../models");
+const { User, Post } = require("../models");
 
 // repositories
-const { UserRepository,PostRepository } = require("../repositories");
+const { UserRepository, PostRepository } = require("../repositories");
 
 const container = createContainer();
 
@@ -31,18 +41,20 @@ container
   .register({
     UserRoutes: asFunction(UserRoutes).singleton(),
     AuthRoutes: asFunction(AuthRoutes).singleton(),
-    CommentRoutes : asFunction(CommentRoutes).singleton(),
-    PostRoutes : asFunction(PostRoutes).singleton()
+    CommentRoutes: asFunction(CommentRoutes).singleton(),
+    PostRoutes: asFunction(PostRoutes).singleton()
   })
   .register({
     User: asValue(User),
-    Post : asValue(Post)
+    Post: asValue(Post)
   })
   .register({
-    UserController: asClass(UserController).singleton(),
-    AuthController: asClass(AuthController).singleton(),
-    CommentController : asClass(CommentController).singleton(),
-    PostController: asClass(PostController).singleton()
+    UserController: asClass(UserController.bind(UserController)).singleton(),
+    AuthController: asClass(AuthController.bind(AuthController)).singleton(),
+    CommentController: asClass(
+      CommentController.bind(CommentController)
+    ).singleton(),
+    PostController: asClass(PostController.bind(PostController)).singleton()
   })
   .register({
     UserService: asClass(UserService).singleton(),
@@ -50,8 +62,8 @@ container
     PostService: asClass(PostService).singleton()
   })
   .register({
-    UserRepository: asClass(UserRepository).singleton(),
-    PostRepository : asClass(PostRepository).singleton()
+    UserRepository: asClass(UserRepository.bind(UserRepository)).singleton(),
+    PostRepository: asClass(PostRepository.bind(PostRepository)).singleton()
   });
 
 module.exports = container;

@@ -1,4 +1,4 @@
-const BaseController = require("./base.controller");
+
 let _userService = null;
 
 class UserController {
@@ -8,7 +8,7 @@ class UserController {
 
   async get(req, res) {
     const { id } = req.params;
-    console.log(_userService)
+
     const user = await _userService.get(id);
 
     return res.send(user);
