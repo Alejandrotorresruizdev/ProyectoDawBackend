@@ -1,10 +1,10 @@
 const BaseService = require('./base.service');
 
 
-class CommentService  {
+class CommentService extends BaseService {
 
-    constructor(){
-        
+    constructor({CommentRepository}){
+            super(CommentRepository)
     }
 }
 

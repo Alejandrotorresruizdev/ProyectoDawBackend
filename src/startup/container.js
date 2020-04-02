@@ -30,7 +30,7 @@ const Routes = require("../routes");
 const { User, Post,Like } = require("../models");
 
 // repositories
-const { UserRepository, PostRepository,LikeRepository } = require("../repositories");
+const { UserRepository, PostRepository,LikeRepository,CommentRepository } = require("../repositories");
 
 const container = createContainer();
 
@@ -71,7 +71,8 @@ container
   .register({
     UserRepository: asClass(UserRepository.bind(UserRepository)).singleton(),
     PostRepository: asClass(PostRepository.bind(PostRepository)).singleton(),
-    LikeRepository: asClass(LikeRepository.bind(LikeRepository)).singleton()
+    LikeRepository: asClass(LikeRepository.bind(LikeRepository)).singleton(),
+    CommentRepository : asClass(CommentRepository.bind(CommentRepository)).singleton()
   });
 
 module.exports = container;
