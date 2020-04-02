@@ -1,11 +1,9 @@
+const BaseRepository = require("./base.repository");
 
-
-class CommentRepository   {
-
-
-    constructor(){
-
-    }
+class CommentRepository extends BaseRepository {
+  constructor({ Comment }) {
+      super(Comment);
+  }
 }
 
 module.exports = CommentRepository;

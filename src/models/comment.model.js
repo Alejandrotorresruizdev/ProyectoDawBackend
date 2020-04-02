@@ -3,12 +3,19 @@ const sequelize = require("../utils/dbSetup.utils");
 const { User } = require("./index");
 const { Post } = require("./index");
 
-const Like = sequelize.define("likes", {
+const Like = sequelize.define("comentarios", {
   id: {
-    field: "idlike",
+    field: "idcomentario",
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+  texto: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notNull: { msg: "El texto es obligatorio" }
+    }
   },
   usuarios_idusuarios: {
     type: DataTypes.INTEGER,

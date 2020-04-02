@@ -27,7 +27,7 @@ const {
 const Routes = require("../routes");
 
 // models
-const { User, Post,Like } = require("../models");
+const { User, Post,Like,Comment } = require("../models");
 
 // repositories
 const { UserRepository, PostRepository,LikeRepository,CommentRepository } = require("../repositories");
@@ -50,7 +50,8 @@ container
   .register({
     User: asValue(User),
     Post: asValue(Post),
-    Like: asValue(Like)
+    Like: asValue(Like),
+    Comment : asValue(Comment)
   })
   .register({
     UserController: asClass(UserController.bind(UserController)).singleton(),
