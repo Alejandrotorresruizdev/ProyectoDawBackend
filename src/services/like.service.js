@@ -13,6 +13,7 @@ const {
 } = require("../constants/errorMessages");
 
 class LikeService extends BaseService {
+  
   constructor({ LikeRepository }) {
     super(LikeRepository);
     _likeRepository = LikeRepository;
@@ -20,16 +21,12 @@ class LikeService extends BaseService {
 
   async getAllLikesFromPost(id) {
     
-    if (responseFunctions.emptyId(id)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
-    }
-
+    if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    
     const entity = await _likeRepository.get(id);
 
-    if (responseFunctions.notFoundEntity(entity)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-    }
-
+    if (responseFunctions.notFoundEntity(entity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+    
     const allEntities = await _likeRepository.getAllLikesFromPost(id);
 
     return responseFunctions.error(CODE_OK, MESS_OK_GET, allEntities);
