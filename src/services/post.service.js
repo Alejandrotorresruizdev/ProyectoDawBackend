@@ -22,7 +22,7 @@ class PostService extends BaseService  {
   }
 
   async getPostByIdUser(id) {
-
+    
     if (responseFunctions.emptyId(id)) {
         return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
       }

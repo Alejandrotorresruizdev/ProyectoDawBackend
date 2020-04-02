@@ -4,15 +4,12 @@ let _likeRepository = null;
 
 const responseFunctions = require("../utils/responseHttp.utils");
 
-const {
-  CODE_NOT_FOUND,
-  CODE_OK
-} = require("../constants/httpCodes");
+const { CODE_NOT_FOUND, CODE_OK } = require("../constants/httpCodes");
 
 const {
   MESS_EMPTY_ID,
   MESS_ID_NOT_FOUND,
-  MESS_OK_GET,
+  MESS_OK_GET
 } = require("../constants/errorMessages");
 
 class LikeService extends BaseService {
@@ -22,16 +19,18 @@ class LikeService extends BaseService {
   }
 
   async getAllLikesFromPost(id) {
+    
     if (responseFunctions.emptyId(id)) {
       return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     }
 
-    const allEntities = await _likeRepository.getAllLikesFromPost(id);
+    const entity = await _likeRepository.get(id);
 
-
-    if (responseFunctions.notFoundEntity(allEntities)) {
+    if (responseFunctions.notFoundEntity(entity)) {
       return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
     }
+
+    const allEntities = await _likeRepository.getAllLikesFromPost(id);
 
     return responseFunctions.error(CODE_OK, MESS_OK_GET, allEntities);
   }

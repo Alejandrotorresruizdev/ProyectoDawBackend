@@ -22,10 +22,11 @@ class BaseService {
   }
 
   async get(id) {
+
     if (responseFunctions.emptyId(id)) {
       return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     }
-    console.log(this.repository);
+    
     const currentEntity = await this.repository.get(id);
 
     if (responseFunctions.notFoundEntity(currentEntity)) {
@@ -53,6 +54,7 @@ class BaseService {
   }
 
   async update(id, entity) {
+
     if (responseFunctions.emptyId(id)) {
       return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     }

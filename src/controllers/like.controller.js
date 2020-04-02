@@ -26,7 +26,6 @@ class LikeController extends BaseController {
         _likeService = LikeService;
     }
 
-
     async getAllLikesFromPost(req,res) {
         const { id } = req.params;
         const allEntities = await _likeService.getAllLikesFromPost(id);

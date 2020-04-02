@@ -17,7 +17,7 @@ responseFunctions.emptyId = id => {
 };
 
 responseFunctions.notFoundEntity = entity => {
-  if (!entity || !entity.length) {
+  if (!entity) {
     return true;
   }
   return false;
