@@ -19,16 +19,13 @@ class PostService extends BaseService {
   }
 
   async getPostByIdUser(id) {
-    if (responseFunctions.emptyId(id)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
-    }
+
+    if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
 
     const currentEntity = await _postRepository.getPostByIdUser(id);
 
-    if (currentEntity === []) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-    }
-
+    if (currentEntity === []) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+  
     return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
   }
 }

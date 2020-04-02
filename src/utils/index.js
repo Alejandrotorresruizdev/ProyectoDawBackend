@@ -10,5 +10,6 @@ module.exports = {
     MYSQL_DB : process.env.MYSQL_DB,
     MYSQL_USER : process.env.MYSQL_USER,
     MYSQL_PASS :process.env.MYSQL_PASS,
-    DB_TYPE: process.env.DB_TYPE
+    DB_TYPE: process.env.DB_TYPE,
+    SWAGGER_PATH:`../config/swagger/${process.env.SWAGGER_DOC}.json`
 }

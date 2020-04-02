@@ -8,9 +8,7 @@ class UserController {
 
   async get(req, res) {
     const { id } = req.params;
-
     const user = await _userService.get(id);
-
     return res.send(user);
   }
 

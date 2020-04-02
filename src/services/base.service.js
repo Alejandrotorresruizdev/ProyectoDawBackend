@@ -17,23 +17,21 @@ const {
 } = require("../constants/errorMessages");
 
 class BaseService {
+
   constructor(repository) {
     this.repository = repository;
   }
 
   async get(id) {
 
-    if (responseFunctions.emptyId(id)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
-    }
+    if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     
     const currentEntity = await this.repository.get(id);
 
-    if (responseFunctions.notFoundEntity(currentEntity)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-    }
-
+    if (responseFunctions.notFoundEntity(currentEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+  
     return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
+    
   }
 
   async getAll() {}
@@ -42,34 +40,28 @@ class BaseService {
     
     const entityCreated = await this.repository.create(entity);
 
-    if (entityCreated.status != CODE_OK) {
-      return responseFunctions.error(CODE_BAD_REQUEST, entityCreated.result);
-    }
+    if (entityCreated.status != CODE_OK) return responseFunctions.error(CODE_BAD_REQUEST, entityCreated.result);
 
     return await responseFunctions.error(
       CODE_CREATED,
       MESS_OK_POST,
       entityCreated.result
     );
+
   }
 
   async update(id, entity) {
 
-    if (responseFunctions.emptyId(id)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
-    }
-
+    if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+  
     const currentEntity = await this.repository.get(id);
 
-    if (responseFunctions.notFoundEntity(currentEntity)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-    }
+    if (responseFunctions.notFoundEntity(currentEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
 
     const updatedEntity = await this.repository.update(id, entity);
 
-    if (updatedEntity) {
-      return responseFunctions.error(CODE_OK, MESS_OK_PUT, updatedEntity);
-    }
+    if (updatedEntity) return responseFunctions.error(CODE_OK, MESS_OK_PUT, updatedEntity);
+
   }
 
   async delete() {}

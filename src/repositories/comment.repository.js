@@ -6,7 +6,7 @@ class CommentRepository extends BaseRepository {
       super(Comment);
   }
 
-  async getAllCommentsFromPost(id) {
+  async getAllCommentsFromPost(id,pageSize = 5,pageNum = 1) {
     const entities = await sequelize.query(
       "SELECT usuarios.usuario,publi.titulo, comentarios.texto ,comentarios.createdAt" +
         " FROM comentarios as comentarios,usuarios as usuarios,publicaciones as publi " +
