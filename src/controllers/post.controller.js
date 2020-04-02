@@ -14,7 +14,6 @@ class PostController extends BaseController {
 
     res.send(getPostByIdUser);
   }
-
 }
 
 module.exports = PostController;

@@ -1,11 +1,11 @@
-class CommentController {
+
+const BaseController = require('./base.controller');
+
+
+class CommentController extends BaseController {
 
     constructor(){
-
-    }
-
-    async get (req,res) {
-        return res.send("GET -> COMMENT CONTROLLER");
+        
     }
 }
 

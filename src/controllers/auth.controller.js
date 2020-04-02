@@ -8,17 +8,18 @@ class AuthController {
   async signIn(req, res) {
     const { body } = req;
 
-    const createdUser = await _authService.signIn(body);
+    const loggedUser = await _authService.signIn(body);
 
-    return res.status(200).send(createdUser);
+    return res.status(loggedUser.status).send(loggedUser);
   }
 
   async signUp(req, res) {
+
     const { body } = req;
 
-    const loggedUser = await _authService.signUp(body);
+    const createdUser = await _authService.signUp(body);
 
-    return res.status(loggedUser.status).send(loggedUser);
+    return res.status(200).send(createdUser);
   }
 
   async recoveryPassword(req, res) {
