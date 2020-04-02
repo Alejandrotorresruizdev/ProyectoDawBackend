@@ -4,9 +4,9 @@ const helmet = require("helmet");
 const compression = require("compression");
 require("express-async-errors");
 
-const { checkTokenMidleware,NotFoundMiddleware,CheckIdUserMidleware } = require('../middlewares');
+const { checkTokenMidleware,NotFoundMiddleware,ErrorMiddleware } = require('../middlewares');
 
-module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes}) {
+module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes,LikeRoutes}) {
   const router = express.Router();
   const apiRoutes = express.Router();
 
@@ -16,17 +16,18 @@ module.exports = function({UserRoutes,AuthRoutes,CommentRoutes,PostRoutes}) {
     .use(helmet())
     .use(compression());
 
-    
   // Model path
   apiRoutes.use('/user', [checkTokenMidleware],UserRoutes);
   apiRoutes.use('/auth',AuthRoutes);
   apiRoutes.use('/post', [checkTokenMidleware],PostRoutes);
-  apiRoutes.use('/comment',CommentRoutes);
+  apiRoutes.use('/comment',[checkTokenMidleware],CommentRoutes);
+  apiRoutes.use('/like',[checkTokenMidleware],LikeRoutes);
   
   // Base api path
   router.use('/v1/api', apiRoutes);
 
   router.use(NotFoundMiddleware);
+  router.use(ErrorMiddleware);
 
   return router;
 };

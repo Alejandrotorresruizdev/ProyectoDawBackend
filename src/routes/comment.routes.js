@@ -3,9 +3,8 @@ const { Router } = require('express');
 module.exports = function({CommentController}) {
     const router = Router();
 
-    router.get('/', CommentController.get);
-    // router.post('/signUp', AuthController.signUp)
-    // router.post('/recovery-password/:email', AuthController.recoveryPassword)
+    router.get('/:id', CommentController.getAllCommentsFromPost);
+    router.post('', CommentController.create);
 
     return router;
 }

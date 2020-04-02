@@ -1,30 +1,21 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/dbSetup.utils");
 const { User } = require("./index");
+const { Post } = require("./index");
 
-const Post = sequelize.define("publicaciones", {
+const Like = sequelize.define("comentarios", {
   id: {
-    field: "idpublicacion",
+    field: "idcomentario",
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  titulo: {
+  texto: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      notNull: { msg: "El titulo es obligatorio" }
+      notNull: { msg: "El texto es obligatorio" }
     }
-  },
-  cuerpo: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notNull: { msg: "El cuerpo es obligatorio" }
-    }
-  },
-  imagen: {
-    type: DataTypes.STRING,
   },
   usuarios_idusuarios: {
     type: DataTypes.INTEGER,
@@ -37,7 +28,19 @@ const Post = sequelize.define("publicaciones", {
     validate: {
       notNull: { msg: "El id de usuario es obligatorio" }
     }
-  }
+  },
+  publicaciones_idpublicacion: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Post,
+      key: "id",
+      field: 'idpublicacion'
+    },
+    validate: {
+      notNull: { msg: "El id de la publicación es obligatorio" }
+    }
+  },
 });
 
-module.exports = Post;
+module.exports = Like;

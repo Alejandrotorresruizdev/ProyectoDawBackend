@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/dbSetup.utils");
 
-const { compareSync, hashSync, genSaltSync } = require("bcryptjs");
+const { hashSync, genSaltSync } = require("bcryptjs");
 
 const User = sequelize.define("usuarios", {
   id: {

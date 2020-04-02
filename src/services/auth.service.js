@@ -23,31 +23,7 @@ class AuthService {
   }
 
   //Cambiar por signUp
-  async signIn(entity) {
-    
-    const entityCreated = await _userService.create(entity);
-
-    if (entityCreated.status === CODE_BAD_REQUEST) {
-      return await responseFunctions.error(
-        CODE_BAD_REQUEST,
-        MESS_ERROR_POST,
-        entityCreated.message
-      );
-    }
-
-    const generatedToken = await jwtFunctions.generateToken(
-      entityCreated.message
-    );
-
-    return await responseFunctions.error(
-      CODE_CREATED,
-      MESS_OK_POST,
-      entityCreated.message,
-      generatedToken
-    );
-  }
-
-  async signUp(body) {
+  async signIn(body) {
     const loggedUser = await _userService.getUserByEmail(body.email);
 
     if (!loggedUser.length) {
@@ -75,6 +51,31 @@ class AuthService {
       CODE_NOT_FOUND,
       "Las credenciales son incorrectas"
     );
+  }
+
+  async signUp(entity) {
+
+    const entityCreated = await _userService.create(entity);
+
+    if (entityCreated.status === CODE_BAD_REQUEST) {
+      return await responseFunctions.error(
+        CODE_BAD_REQUEST,
+        MESS_ERROR_POST,
+        entityCreated.message
+      );
+    }
+
+    const generatedToken = await jwtFunctions.generateToken(
+      entityCreated.message
+    );
+
+    return await responseFunctions.error(
+      CODE_CREATED,
+      MESS_OK_POST,
+      entityCreated.message,
+      generatedToken
+    );
+   
   }
 
   async recoveryPassword(email) {

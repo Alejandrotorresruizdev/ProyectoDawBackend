@@ -5,7 +5,7 @@ const config = require("../utils");
 const server = require("./index");
 
 // services
-const { UserService, AuthService, PostService } = require("../services");
+const { UserService, AuthService, PostService,LikeService,CommentService } = require("../services");
 
 // controllers
 const {
@@ -13,7 +13,7 @@ const {
   AuthController,
   CommentController,
   PostController,
-  BaseController
+  LikeController
 } = require("../controllers");
 
 // routes
@@ -21,15 +21,16 @@ const {
   UserRoutes,
   AuthRoutes,
   CommentRoutes,
-  PostRoutes
+  PostRoutes,
+  LikeRoutes
 } = require("../routes/index.routes");
 const Routes = require("../routes");
 
 // models
-const { User, Post } = require("../models");
+const { User, Post,Like,Comment } = require("../models");
 
 // repositories
-const { UserRepository, PostRepository } = require("../repositories");
+const { UserRepository, PostRepository,LikeRepository,CommentRepository } = require("../repositories");
 
 const container = createContainer();
 
@@ -43,28 +44,36 @@ container
     UserRoutes: asFunction(UserRoutes).singleton(),
     AuthRoutes: asFunction(AuthRoutes).singleton(),
     CommentRoutes: asFunction(CommentRoutes).singleton(),
-    PostRoutes: asFunction(PostRoutes).singleton()
+    PostRoutes: asFunction(PostRoutes).singleton(),
+    LikeRoutes: asFunction(LikeRoutes).singleton()
   })
   .register({
     User: asValue(User),
-    Post: asValue(Post)
+    Post: asValue(Post),
+    Like: asValue(Like),
+    Comment : asValue(Comment)
   })
   .register({
     UserController: asClass(UserController.bind(UserController)).singleton(),
     AuthController: asClass(AuthController.bind(AuthController)).singleton(),
     CommentController: asClass(
-      CommentController.bind(CommentController)
+    CommentController.bind(CommentController)
     ).singleton(),
-    PostController: asClass(PostController.bind(PostController)).singleton()
+    PostController: asClass(PostController.bind(PostController)).singleton(),
+    LikeController: asClass(LikeController.bind(LikeController)).singleton()
   })
   .register({
     UserService: asClass(UserService).singleton(),
     AuthService: asClass(AuthService).singleton(),
-    PostService: asClass(PostService.bind(PostService)).singleton()
+    PostService: asClass(PostService.bind(PostService)).singleton(),
+    LikeService : asClass(LikeService).singleton(),
+    CommentService : asClass(CommentService).singleton()
   })
   .register({
     UserRepository: asClass(UserRepository.bind(UserRepository)).singleton(),
-    PostRepository: asClass(PostRepository.bind(PostRepository)).singleton()
+    PostRepository: asClass(PostRepository.bind(PostRepository)).singleton(),
+    LikeRepository: asClass(LikeRepository.bind(LikeRepository)).singleton(),
+    CommentRepository : asClass(CommentRepository.bind(CommentRepository)).singleton()
   });
 
 module.exports = container;

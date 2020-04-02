@@ -11,10 +11,8 @@ class PostController extends BaseController {
   async getPostByIdUser(req, res) {
     const { id } = req.params;
     const getPostByIdUser = await _postService.getPostByIdUser(id);
-
     res.send(getPostByIdUser);
   }
-
 }
 
 module.exports = PostController;
