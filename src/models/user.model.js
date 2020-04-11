@@ -34,6 +34,7 @@ const User = sequelize.define("usuarios", {
   },
   roles_idroles: {
     type: DataTypes.INTEGER,
+    defaultValue:3,
     allowNull: false,
     validate: {
       notNull: { msg: "El rol de usuario es obligatorio" }

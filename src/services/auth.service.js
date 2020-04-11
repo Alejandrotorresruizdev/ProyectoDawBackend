@@ -7,13 +7,13 @@ const {
   CODE_OK,
   CODE_NOT_FOUND,
   CODE_CREATED,
-  CODE_BAD_REQUEST
+  CODE_BAD_REQUEST,
 } = require("../constants/httpCodes");
 
 const {
   MESS_OK_POST,
   MESS_ERROR_POST,
-  MESS_ID_NOT_FOUND
+  MESS_ID_NOT_FOUND,
 } = require("../constants/errorMessages");
 const { compareSync } = require("bcryptjs");
 
@@ -22,14 +22,13 @@ class AuthService {
     _userService = UserService;
   }
 
-  //Cambiar por signUp
   async signIn(body) {
     const loggedUser = await _userService.getUserByEmail(body.email);
-
+    
     if (!loggedUser.length) {
       return responseFunctions.error(
         CODE_NOT_FOUND,
-        "Las credenciales son incorrectas",
+        "El email es incorrecta",
         loggedUser
       );
     }
@@ -42,29 +41,34 @@ class AuthService {
       return responseFunctions.error(
         CODE_OK,
         "La credenciales son correctas",
-        loggedUser,
         generatedToken
       );
     }
 
     return responseFunctions.error(
       CODE_NOT_FOUND,
-      "Las credenciales son incorrectas"
+      "La contraseña es incorrecta"
     );
   }
 
   async signUp(entity) {
-
     const entityCreated = await _userService.create(entity);
-
+    
+    // Si hay un error enviamos un mensaje de error.
     if (entityCreated.status === CODE_BAD_REQUEST) {
+
+      let errorMsg;
+      if(entityCreated.message == 'usuario_UNIQUE') errorMsg = 'El nombre de usuario ya esta en uso';
+      if(entityCreated.message == 'email_UNIQUE') errorMsg = 'El nombre del email ya esta en uso';
+
       return await responseFunctions.error(
         CODE_BAD_REQUEST,
         MESS_ERROR_POST,
-        entityCreated.message
+        errorMsg
       );
     }
 
+    // Si se ha creado correctamente generamos un token y devolvemos la respuesta
     const generatedToken = await jwtFunctions.generateToken(
       entityCreated.message
     );
@@ -72,23 +76,20 @@ class AuthService {
     return await responseFunctions.error(
       CODE_CREATED,
       MESS_OK_POST,
-      entityCreated.message,
       generatedToken
     );
-   
   }
 
   async recoveryPassword(email) {
-    if (responseFunctions.emptyId(email)) {
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
-    }
 
+    if (responseFunctions.emptyId(email)) 
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    
     const currentEntity = await _userService.getUserByEmail(email);
 
-    if (responseFunctions.notFoundEntity(currentEntity.length)) {
+    if (responseFunctions.notFoundEntity(currentEntity.length)) 
       return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-    }
-
+    
     // Genero una nueva password
     const randomPassword = await jwtFunctions.generateRandomPassword();
 
@@ -101,23 +102,31 @@ class AuthService {
     // Actualizo la password en la base de datos
     const recoveryPasswordUpdated = await _userService.update(
       currentEntity[0].id,
-      "",
       { password: currentEntity[0].password }
     );
+
+    if(!recoveryPasswordUpdated)
+      return responseFunctions.error(
+        CODE_BAD_REQUEST,
+        "Ha ocurrido un error en la actualización de la contraseña"
+      );
 
     // Envío un correo al usuario con una nueva password
     const recoveryPasswordMail = await mailerFunctions.send(
       randomPassword,
       currentEntity[0].email
     );
-
+    
     if (recoveryPasswordMail) {
       return responseFunctions.error(
         CODE_OK,
         "Contraseña restablecida correctamente"
       );
     } else {
-      return "Contraseña no restablecida";
+      return responseFunctions.error(
+        CODE_BAD_REQUEST,
+        "Ha ocurrido un error en la actualización de la contraseña"
+      );
     }
   }
 }

@@ -45,7 +45,7 @@ class BaseRepository {
         return updatedEntity;
       })
       .catch(() => {
-        return null;
+        return false;
       });
   }
 

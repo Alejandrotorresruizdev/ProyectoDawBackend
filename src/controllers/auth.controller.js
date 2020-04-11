@@ -19,7 +19,7 @@ class AuthController {
 
     const createdUser = await _authService.signUp(body);
 
-    return res.status(200).send(createdUser);
+    return res.status(createdUser.status).send(createdUser);
   }
 
   async recoveryPassword(req, res) {

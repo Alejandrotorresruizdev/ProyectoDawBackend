@@ -4,7 +4,7 @@ responseFunctions.error = (statusCode, message,entity,token) => {
   const error = new Error();
   error.status = statusCode;
   error.message = message;
-  error.body = entity;
+  error.data = entity;
   error.token = token;
   return error;
 };

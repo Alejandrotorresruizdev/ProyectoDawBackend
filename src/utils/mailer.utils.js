@@ -12,27 +12,26 @@ let transporter = nodemailer.createTransport({
 
 mailerFunctions.send = async (recovery_password_token, email) => {
 
-  contentHTML = `
+  let contentHTML = `
     <h1>Recuperación de contraseña</h1>
     <ul>
     Nueva contraseña :${recovery_password_token}
     </ul>
   `;
 
-  var mailOptionsObject = {
+  let mailOptionsObject = {
     from: "Comparte la historia",
-    to: "compartelahistoriarecovery@gmail.com", // EL email del usuaripo
+    to: "compartelahistoriarecovery@gmail.com", // Pruebas:: El email del usuario
     subject: "Recuperación de contraseña",
     html: contentHTML
   };
 
   let sendEmailResponse = await transporter
     .sendMail(mailOptionsObject)
-    .then(function(info) {
+    .then(function() {
       return true;
     })
     .catch(function(err) {
-      console.log(err);
       return false;
     });
 
