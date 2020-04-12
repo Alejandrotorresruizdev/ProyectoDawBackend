@@ -10,7 +10,8 @@ class CommentController extends BaseController {
 
   async getAllCommentsFromPost(req, res) {
     const { id } = req.params;
-    const allEntities = await _commentService.getAllCommentsFromPost(id);
+    const { offset,limit } = req.query
+    const allEntities = await _commentService.getAllCommentsFromPost(id,offset,limit);
     res.send(allEntities);
   }
 }

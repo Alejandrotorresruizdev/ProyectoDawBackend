@@ -38,11 +38,12 @@ class AuthService {
     const checkPassword = compareSync(body.password, loggedUser[0].password);
 
     if (checkPassword) {
-      const generatedToken = await jwtFunctions.generateToken(loggedUser);
+      const generatedToken = await jwtFunctions.generateToken(loggedUser[0]);
 
       return responseFunctions.error(
         CODE_OK,
         "La credenciales son correctas",
+        loggedUser,
         generatedToken
       );
     }
@@ -70,15 +71,15 @@ class AuthService {
         errorMsg
       );
     }
-
     // Si se ha creado correctamente generamos un token y devolvemos la respuesta
     const generatedToken = await jwtFunctions.generateToken(
-      entityCreated.message
+      entityCreated.data
     );
 
     return await responseFunctions.error(
       CODE_CREATED,
       MESS_OK_POST,
+      entityCreated.data,
       generatedToken
     );
   }

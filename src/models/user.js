@@ -39,8 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   User.associate = function (models) {
-    // associations can be defined here
     User.hasMany(models.Post, { as: "posts" });
+    User.hasMany(models.Comment, { as: "comment" });
   };
 
   User.beforeCreate(async (user) => {

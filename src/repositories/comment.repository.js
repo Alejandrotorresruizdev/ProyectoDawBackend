@@ -1,24 +1,45 @@
 const BaseRepository = require("./base.repository");
-const sequelize = require("../utils/dbSetup.utils");
+const { User } = require("../models/index");
+const { Post } = require("../models/index");
 
+let _commentModel = null;
 class CommentRepository extends BaseRepository {
   constructor({ Comment }) {
-      super(Comment);
+    super(Comment);
+    _commentModel = Comment;
   }
 
-  async getAllCommentsFromPost(id,pageSize = 5,pageNum = 1) {
-    const entities = await sequelize.query(
-      "SELECT usuarios.usuario,publi.titulo, comentarios.texto ,comentarios.createdAt" +
-        " FROM comentarios as comentarios,usuarios as usuarios,publicaciones as publi " +
-        "WHERE comentarios.publicaciones_idpublicacion = (:id) " +
-        "and publi.idPublicacion = (:id) " +
-        "and usuarios.idusuario = comentarios.usuarios_idusuarios",{
-        replacements: { id: id },
-        type: sequelize.QueryTypes.SELECT
-      }
-    );
+  async getAllCommentsFromPost(id, offset , limit ) {
+    const listPost = _commentModel
+      .findAndCountAll({
+        where: {
+          postId:id
+        },
+        include: [
+          {
+            model: User,
+            as: "user",
+            attributes: ["id", "full_name", "usuario"],
+          },
+          {
+            model: Post,
+            as: "post",
+            attributes: ["id", "titulo"],
+          }
+        ],
+        offset: parseInt(offset),
+        limit: parseInt(limit),
+        order: [["createdAt", "DESC"]],
+      })
+      .then((list) => {
+        return list;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
 
-    return entities;
+    return listPost;
   }
 }
 

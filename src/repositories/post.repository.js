@@ -9,7 +9,6 @@ class PostRepository extends BaseRepository {
   }
 
   async getPostByIdUser(id, offset, limit) {
-    console.log(id);
     const listPost = _postModel
       .findAndCountAll({
         where: {

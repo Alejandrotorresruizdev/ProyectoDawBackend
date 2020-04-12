@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
         responseFunctions.error(CODE_UNAUTHORIZED, "El token no es válido")
       );
 
-    req.id = decodedToken.user[0].id;
+      req.id = decodedToken.user.id;
 
     next();
   });
