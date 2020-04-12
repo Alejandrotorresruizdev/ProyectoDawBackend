@@ -5,7 +5,8 @@ const {
   CODE_NOT_FOUND,
   CODE_OK,
   CODE_BAD_REQUEST,
-  CODE_CREATED
+  CODE_CREATED,
+  CODE_UNAUTHORIZED
 } = require("../constants/httpCodes");
 
 const {
@@ -50,15 +51,18 @@ class BaseService {
 
   }
 
-  async update(id, entity) {
+  async update(id,idEntity,entity) {
 
-    if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    if (responseFunctions.emptyId(idEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
   
-    const currentEntity = await this.repository.get(id);
+    const currentEntity = await this.repository.get(idEntity);
+        
+    if(currentEntity.usuarios_idusuarios != id) return responseFunctions.error(CODE_UNAUTHORIZED, "No estas autorizado");
 
     if (responseFunctions.notFoundEntity(currentEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
 
-    const updatedEntity = await this.repository.update(id, entity);
+    const updatedEntity = await this.repository.update(idEntity, entity);
+
 
     if (updatedEntity) return responseFunctions.error(CODE_OK, MESS_OK_PUT, updatedEntity);
 

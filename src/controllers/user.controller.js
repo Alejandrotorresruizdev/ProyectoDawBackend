@@ -1,4 +1,3 @@
-
 let _userService = null;
 
 class UserController {
@@ -7,9 +6,10 @@ class UserController {
   }
 
   async get(req, res) {
-    const { id } = req.params;
+    const { id } = req;
+    console.log(id);
     const user = await _userService.get(id);
-    return res.send(user);
+    return await res.status(200).send(user);
   }
 
   async create(req, res) {
@@ -20,10 +20,7 @@ class UserController {
   async update(req, res) {
     const { idusuario } = req.params;
     const entity = req.body;
-    const userUpdated = await _userService.update(
-      idusuario,
-      entity
-    );
+    const userUpdated = await _userService.update(idusuario, entity);
 
     return await res.status(userUpdated.status).send(userUpdated);
   }

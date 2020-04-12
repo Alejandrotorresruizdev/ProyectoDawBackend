@@ -10,15 +10,18 @@ class BaseController {
   };
 
   create = async (req, res) => {
+    const { id } = req;
     const entity = req.body;
+    entity.usuarios_idusuarios = id;
     const entityCreated = await this.service.create(entity);
     res.status(200).send(entityCreated);
   };
 
   update = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req;
+    const { idEntity } = req.params;
     const entity = req.body;
-    const entityUpdated = await this.service.update(id, entity);
+    const entityUpdated = await this.service.update(id, idEntity, entity);
     res.status(entityUpdated.status).send(entityUpdated);
   };
 }

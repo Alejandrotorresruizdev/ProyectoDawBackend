@@ -7,7 +7,7 @@ const { CODE_NOT_FOUND, CODE_OK } = require("../constants/httpCodes");
 const {
   MESS_EMPTY_ID,
   MESS_ID_NOT_FOUND,
-  MESS_OK_GET
+  MESS_OK_GET,
 } = require("../constants/errorMessages");
 
 let _postRepository = null;
@@ -18,14 +18,19 @@ class PostService extends BaseService {
     _postRepository = PostRepository;
   }
 
-  async getPostByIdUser(id) {
+  async getPostByIdUser(id, offset, limit) {
+    if (responseFunctions.emptyId(id))
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
 
-    if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+    const currentEntity = await _postRepository.getPostByIdUser(
+      id,
+      offset,
+      limit
+    );
 
-    const currentEntity = await _postRepository.getPostByIdUser(id);
+    if (currentEntity === [])
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
 
-    if (currentEntity === []) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-  
     return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
   }
 }

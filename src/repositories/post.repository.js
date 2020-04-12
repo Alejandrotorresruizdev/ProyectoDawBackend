@@ -7,24 +7,15 @@ class PostRepository extends BaseRepository {
     _postModel = Post;
   }
 
-  paginate = ({ page, pageSize }) => {
-    const offset = page * pageSize;
-    const limit = pageSize;
-
-    return {
-      offset,
-      limit,
-    };
-  };
-
-  async getPostByIdUser(id, pageSize = 5) {
+  async getPostByIdUser(id, offset, limit) {
+    console.log(offset)
     const listPost = _postModel
       .findAndCountAll({
         where: {
           usuarios_idusuarios: id,
         },
-        limit: pageSize,
-        offset: 10,
+        offset: parseInt(offset),
+        limit: parseInt(limit),
       })
       .then((list) => {
         return list;

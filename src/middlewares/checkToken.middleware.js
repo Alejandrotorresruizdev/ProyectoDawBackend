@@ -5,20 +5,25 @@ const responseFunctions = require("../utils/responseHttp.utils");
 
 const {
   CODE_BAD_REQUEST,
-  CODE_UNAUTHORIZED
+  CODE_UNAUTHORIZED,
 } = require("../constants/httpCodes");
 
 module.exports = (req, res, next) => {
-  
   const token = req.headers["authorization"];
 
-  if (!token) return res.send(responseFunctions.error(CODE_BAD_REQUEST, "El token debe ser enviado"));
-  
-  jwt.verify(token, JWT_SECRET, function(err) {
+  if (!token)
+    return res.send(
+      responseFunctions.error(CODE_BAD_REQUEST, "El token debe ser enviado")
+    );
 
-    if (err) return res.send(responseFunctions.error(CODE_UNAUTHORIZED, "El token no es válido"));
-    
+  jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+    if (err)
+      return res.send(
+        responseFunctions.error(CODE_UNAUTHORIZED, "El token no es válido")
+      );
+
+    req.id = decodedToken.user[0].id;
+
     next();
-
   });
 };
