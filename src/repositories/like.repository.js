@@ -2,8 +2,8 @@ const BaseRepository = require("./base.repository");
 const sequelize = require("../utils/dbSetup.utils");
 
 class LikeRepository extends BaseRepository {
-  constructor({ Like }) {
-    super(Like);
+  constructor({ Likes}) {
+    super(Likes);
   }
 
   async getAllLikesFromPost(id) {

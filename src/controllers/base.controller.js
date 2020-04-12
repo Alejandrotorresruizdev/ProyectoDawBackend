@@ -14,7 +14,7 @@ class BaseController {
     const entity = req.body;
     entity.userId = id;
     const entityCreated = await this.service.create(entity);
-    res.status(entityCreated.status).send(entityCreated);
+    res.status(200).send(entityCreated);
   };
 
   update = async (req, res) => {

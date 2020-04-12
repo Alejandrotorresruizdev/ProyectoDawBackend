@@ -7,7 +7,6 @@ class BaseRepository {
   }
 
   async get(id) {
-    console.log(this.model)
     return await this.model.findByPk(id);
   }
 
@@ -23,7 +22,7 @@ class BaseRepository {
           status: CODE_OK,
           result: result
         };
-
+        console.log(result)
         return response;
       })
       .catch(err => {
@@ -31,6 +30,7 @@ class BaseRepository {
           status: CODE_NOT_FOUND,
           result: err.errors[0].path
         };
+        console.log(err)
 
         return response;
       });

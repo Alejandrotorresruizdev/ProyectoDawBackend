@@ -19,7 +19,7 @@ class LikeService extends BaseService {
     _likeRepository = LikeRepository;
   }
 
-  async getAllLikesFromPost(id) {
+   getAllLikesFromPost  = async (id) => {
     
     if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     
