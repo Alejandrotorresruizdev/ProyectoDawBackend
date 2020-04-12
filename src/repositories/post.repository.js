@@ -1,4 +1,5 @@
 const BaseRepository = require("./base.repository");
+const { User } = require("../models/index");
 
 let _postModel = null;
 class PostRepository extends BaseRepository {
@@ -14,6 +15,7 @@ class PostRepository extends BaseRepository {
         where: {
           usuarios_idusuarios: id,
         },
+        include: User,
         offset: parseInt(offset),
         limit: parseInt(limit),
       })
@@ -21,6 +23,7 @@ class PostRepository extends BaseRepository {
         return list;
       })
       .catch((err) => {
+        console.log(err)
         return false;
       });
 
