@@ -9,21 +9,25 @@ class PostRepository extends BaseRepository {
   }
 
   async getPostByIdUser(id, offset, limit) {
-    console.log(offset)
+    console.log(id);
     const listPost = _postModel
       .findAndCountAll({
         where: {
-          usuarios_idusuarios: id,
+          userId: id,
         },
-        include: User,
+        attributes: { exclude: ['UserId','userId'] },
+        include: [{ model: User, as: "user",attributes: [ 'id', 'full_name', 'usuario' ] }],
         offset: parseInt(offset),
         limit: parseInt(limit),
+        order: [
+          ['createdAt', 'DESC'],
+      ],
       })
       .then((list) => {
         return list;
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         return false;
       });
 
@@ -31,12 +35,5 @@ class PostRepository extends BaseRepository {
   }
 }
 
-// SELECT  comentarios.idcomentario,usuarios.usuario,publicaciones.titulo, comentarios.texto
-// FROM mydb.publicaciones as publicaciones,
-// mydb.comentarios as comentarios,
-// mydb.usuarios as usuarios
-// where publicaciones.idPublicacion = 1
-// and comentarios.publicaciones_idpublicacion = 1
-// and usuarios.idusuario = comentarios.usuarios_idusuarios and comentarios.idcomentario > 4 limit 4
 
 module.exports = PostRepository;

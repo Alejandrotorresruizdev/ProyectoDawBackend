@@ -12,7 +12,7 @@ class BaseController {
   create = async (req, res) => {
     const { id } = req;
     const entity = req.body;
-    entity.usuarios_idusuarios = id;
+    entity.userId = id;
     const entityCreated = await this.service.create(entity);
     res.status(200).send(entityCreated);
   };
