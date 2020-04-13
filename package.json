@@ -5,7 +5,7 @@
   "main": "webapp.js",
   "scripts": {
     "start": "babel-node webapp.js",
-    "dev" :"nodemon --exec babel-node webapp.js",
+    "dev": "nodemon --exec babel-node webapp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,7 +29,6 @@
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-fileupload": "^1.1.7-alpha.3",
@@ -45,6 +44,7 @@
   },
   "devDependencies": {
     "jest": "^25.2.3",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "dotenv": "^8.2.0"
   }
 }
