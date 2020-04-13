@@ -1,5 +1,4 @@
 let _authService = null;
-
 class AuthController {
   constructor({ AuthService }) {
     _authService = AuthService;
@@ -14,12 +13,18 @@ class AuthController {
   }
 
   async signUp(req, res) {
-
     const { body } = req;
 
-    const createdUser = await _authService.signUp(body);
+    // const newUser = JSON.parse(body.user);
+    const file = req.files.files;
 
-    return res.status(createdUser.status).send(createdUser);
+    file.mv('./uploads/' + Date.now() +".jpg");
+
+  
+
+    // const createdUser = await _authService.signUp(newUser,file);
+
+    // return res.status(200).send(createdUser);
   }
 
   async recoveryPassword(req, res) {
