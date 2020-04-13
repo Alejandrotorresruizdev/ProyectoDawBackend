@@ -4,7 +4,7 @@
   "description": "Proyecto final D.A.W ",
   "main": "webapp.js",
   "scripts": {
-    "start": "nodemon --exec babel-node webapp.js",
+    "start": "babel-node webapp.js",
     "dev": "npm run build && node dist/webapp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,12 +19,20 @@
   },
   "homepage": "https://github.com/AlejandroTorresRuiz-coder/ProyectoDawBackend#readme",
   "dependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "awilix": "^4.2.5",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "express-fileupload": "^1.1.7-alpha.3",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "memory-cache": "^0.2.0",
@@ -36,13 +44,6 @@
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/node": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "dotenv": "^8.2.0",
     "jest": "^25.2.3",
     "nodemon": "^2.0.2"
   }
