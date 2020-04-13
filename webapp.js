@@ -7,5 +7,5 @@ const sequelize = require('./src/utils/dbSetup.utils');
 sequelize.authenticate().then(()=>{
     // server.start();
 }).catch(err => {
-    console.log(err)
+    console.log(err);
 })
