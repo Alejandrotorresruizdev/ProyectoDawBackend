@@ -14,7 +14,6 @@ jwtFunctions.generateRandomPassword = () => {
     for (let i = 0; i < 10; ++i) {
         randomPassword += (Math.floor(Math.random() * 16)).toString(16);
     }
-    console.log(randomPassword)
     return randomPassword;
 }
 
