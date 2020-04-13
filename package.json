@@ -5,7 +5,7 @@
   "main": "webapp.js",
   "scripts": {
     "start": "babel-node webapp.js",
-    "dev": "npm run build && node dist/webapp.js",
+    "dev" :"nodemon --exec babel-node webapp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
