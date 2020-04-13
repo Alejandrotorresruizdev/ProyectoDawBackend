@@ -54,42 +54,43 @@ class AuthService {
     );
   }
 
-  async signUp(entity, file) {
-
-    file.mv(`./uploads/${Date.now()}.jpg`, (err) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
+   async signUp(entity, file) {
     
-        return res.json({ fileName: avatar.name, filePath: `/uploads/${Date.now()}.jpg` });
-      });
-    
+    if(file){
+      try {
+        const dateName = Date.now();
+        file.mv(`./uploads/${dateName}.jpg`);
+        entity.imagen = `/uploads/${dateName}.jpg`;
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
-    // const entityCreated = await _userService.create(entity);
+    const entityCreated = await _userService.create(entity);
 
-    // // Si hay un error enviamos un mensaje de error.
-    // if (entityCreated.status === CODE_BAD_REQUEST) {
-    //   let errorMsg;
-    //   if (entityCreated.message == "usuario_UNIQUE")
-    //     errorMsg = "El nombre de usuario ya esta en uso";
-    //   if (entityCreated.message == "email_UNIQUE")
-    //     errorMsg = "El nombre del email ya esta en uso";
+    // Si hay un error enviamos un mensaje de error.
+    if (entityCreated.status === CODE_BAD_REQUEST) {
+      let errorMsg;
+      if (entityCreated.message == "usuario_UNIQUE")
+        errorMsg = "El nombre de usuario ya esta en uso";
+      if (entityCreated.message == "email_UNIQUE")
+        errorMsg = "El nombre del email ya esta en uso";
 
-    //   return await responseFunctions.error(
-    //     CODE_BAD_REQUEST,
-    //     MESS_ERROR_POST,
-    //     errorMsg
-    //   );
-    // }
-    // // Si se ha creado correctamente generamos un token y devolvemos la respuesta
-    // const generatedToken = await jwtFunctions.generateToken(entityCreated.data);
+      return await responseFunctions.error(
+        CODE_BAD_REQUEST,
+        MESS_ERROR_POST,
+        errorMsg
+      );
+    }
+    // Si se ha creado correctamente generamos un token y devolvemos la respuesta
+    const generatedToken = await jwtFunctions.generateToken(entityCreated.data);
 
-    // return await responseFunctions.error(
-    //   CODE_CREATED,
-    //   MESS_OK_POST,
-    //   entityCreated.data,
-    //   generatedToken
-    // );
+    return await responseFunctions.error(
+      CODE_CREATED,
+      MESS_OK_POST,
+      entityCreated.data,
+      generatedToken
+    );
   }
 
   async recoveryPassword(email) {

@@ -16,6 +16,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      imagen:{
+        type: Sequelize.STRING
+      },
       password: {
         type: Sequelize.STRING
       },

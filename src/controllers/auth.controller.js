@@ -13,18 +13,14 @@ class AuthController {
   }
 
   async signUp(req, res) {
-    const { body } = req;
+    const { body ,files} = req;
 
-    // const newUser = JSON.parse(body.user);
-    const file = req.files.files;
-
-    file.mv('./uploads/' + Date.now() +".jpg");
-
+    const newUser = JSON.parse(body.user);
+    const file = files ? files.files : null;
   
+    const createdUser = await _authService.signUp(newUser,file);
 
-    // const createdUser = await _authService.signUp(newUser,file);
-
-    // return res.status(200).send(createdUser);
+    return res.status(200).send(createdUser);
   }
 
   async recoveryPassword(req, res) {

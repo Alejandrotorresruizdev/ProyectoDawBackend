@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
           notNull: { msg: "El nombre de usuario es obligatorio" },
         },
       },
+      imagen:{
+        type: DataTypes.STRING
+      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -30,10 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       roles_idroles: {
         type: DataTypes.INTEGER,
         defaultValue: 3,
-        allowNull: false,
-        validate: {
-          notNull: { msg: "El rol de usuario es obligatorio" },
-        },
+        allowNull: false
       },
     },
     {}
