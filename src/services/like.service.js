@@ -1,6 +1,7 @@
 const BaseService = require("./base.service");
 
 let _likeRepository = null;
+let _postRepository = null;
 
 const responseFunctions = require("../utils/responseHttp.utils");
 
@@ -14,19 +15,20 @@ const {
 
 class LikeService extends BaseService {
   
-  constructor({ LikeRepository }) {
+  constructor({ LikeRepository,PostRepository }) {
     super(LikeRepository);
     _likeRepository = LikeRepository;
+    _postRepository = PostRepository;
   }
 
    getAllLikesFromPost  = async (id) => {
-    
+
     if (responseFunctions.emptyId(id)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
     
-    const entity = await _likeRepository.get(id);
+    const entity = await _postRepository.get(id);
 
     if (responseFunctions.notFoundEntity(entity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
-    
+  
     const allEntities = await _likeRepository.getAllLikesFromPost(id);
 
     return responseFunctions.error(CODE_OK, MESS_OK_GET, allEntities);

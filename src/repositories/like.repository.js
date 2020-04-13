@@ -1,24 +1,34 @@
 const BaseRepository = require("./base.repository");
-const sequelize = require("../utils/dbSetup.utils");
+const { User } = require("../models/index");
+let _likeModel = null;
 
 class LikeRepository extends BaseRepository {
   constructor({ Likes}) {
     super(Likes);
+    _likeModel = Likes;
   }
 
   async getAllLikesFromPost(id) {
-    const entities = await sequelize.query(
-      "SELECT usuarios.usuario,likes.idlike,publi.titulo" +
-        " FROM likes as likes,usuarios as usuarios,publicaciones as publi " +
-        "WHERE likes.publicaciones_idpublicacion = (:id) " +
-        "and publi.idPublicacion = (:id) " +
-        "and usuarios.idusuario = likes.usuarios_idusuarios",{
-        replacements: { id: id },
-        type: sequelize.QueryTypes.SELECT
-      }
-    );
+    const listPost = _likeModel
+    .findAndCountAll({
+      where: {
+        postId: id,
+      },
+      attributes: { exclude: ['UserId','userId','PostId','updatedAt'] },
+      include: [{ model: User, as: "user",attributes: [ 'id', 'full_name', 'usuario' ] }],
+      order: [
+        ['createdAt', 'DESC'],
+    ],
+    })
+    .then((list) => {
+      return list;
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
+    });
 
-    return entities;
+  return listPost;
   }
 }
 
