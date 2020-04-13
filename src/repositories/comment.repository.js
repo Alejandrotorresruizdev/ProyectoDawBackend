@@ -35,7 +35,6 @@ class CommentRepository extends BaseRepository {
         return list;
       })
       .catch((err) => {
-        console.log(err);
         return [];
       });
 

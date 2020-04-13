@@ -24,7 +24,6 @@ class LikeRepository extends BaseRepository {
       return list;
     })
     .catch((err) => {
-      console.log(err);
       return false;
     });
 

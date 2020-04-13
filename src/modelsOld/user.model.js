@@ -52,7 +52,6 @@ User.associate = function(models) {
 User.beforeCreate(async (user) => {
   const salt = await genSaltSync(10);
   const hashedPassword = await hashSync(user.password, salt);
-  console.log(hashedPassword);
   user.password = hashedPassword;
 });
 

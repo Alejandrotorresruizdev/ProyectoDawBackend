@@ -62,7 +62,7 @@ class AuthService {
         file.mv(`./uploads/${dateName}.jpg`);
         entity.imagen = `/uploads/${dateName}.jpg`;
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
 
