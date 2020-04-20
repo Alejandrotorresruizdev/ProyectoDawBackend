@@ -14,6 +14,12 @@ class PostController extends BaseController {
     const getPostByIdUser = await _postService.getPostByIdUser(id,offset,limit);
     res.status(getPostByIdUser.status).send(getPostByIdUser);
   }
+
+  async getPostByDate(req, res) {
+    const { offset,limit } = req.query;
+    const getPostByDate = await _postService.getPostByDate(offset,limit);
+    res.status(getPostByDate.status).send(getPostByDate);
+  }
 }
 
 module.exports = PostController;

@@ -33,6 +33,20 @@ class PostService extends BaseService {
 
     return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
   }
+
+  async getPostByDate(offset, limit) {
+
+
+    const currentEntity = await _postRepository.getPostByDate(
+      offset,
+      limit
+    );
+
+    if (currentEntity === [])
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+
+    return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
+  }
 }
 
 module.exports = PostService;

@@ -40,7 +40,7 @@ module.exports = function ({
   // Model path
   apiRoutes.use("/user", [checkTokenMidleware], UserRoutes);
   apiRoutes.use("/auth", AuthRoutes);
-  apiRoutes.use("/post", [checkTokenMidleware], PostRoutes);
+  apiRoutes.use("/post", PostRoutes);
   apiRoutes.use("/comment", [checkTokenMidleware], CommentRoutes);
   apiRoutes.use("/like", [checkTokenMidleware], LikeRoutes);
 
