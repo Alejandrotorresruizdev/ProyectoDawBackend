@@ -68,7 +68,19 @@ class BaseService {
 
   }
 
-  async delete() {}
+  async delete(id,idEntity) {
+    if (responseFunctions.emptyId(idEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+  
+    const currentEntity = await this.repository.get(idEntity);
+    
+    if(currentEntity.userId != id) return responseFunctions.error(CODE_UNAUTHORIZED, "No estas autorizado");
+
+    if (responseFunctions.notFoundEntity(currentEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+
+    const deletedEntity = await this.repository.delete(idEntity);
+
+    if (deletedEntity) return responseFunctions.error(CODE_OK, MESS_OK_PUT, deletedEntity);
+  }
 }
 
 module.exports = BaseService;

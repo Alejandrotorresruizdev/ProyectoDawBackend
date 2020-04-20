@@ -12,7 +12,7 @@ class UserController {
   }
 
   async create(req, res) {
-    const userCreated = await _userService.create(req.body);
+     const userCreated = await _userService.create(req.body);
     return res.status(200).send(userCreated);
   }
 

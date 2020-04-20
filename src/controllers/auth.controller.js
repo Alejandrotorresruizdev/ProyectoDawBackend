@@ -17,7 +17,7 @@ class AuthController {
 
     const newUser = JSON.parse(body.user);
     const file = files ? files.files : null;
-  
+
     const createdUser = await _authService.signUp(newUser,file);
 
     return res.status(200).send(createdUser);

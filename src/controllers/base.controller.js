@@ -24,6 +24,13 @@ class BaseController {
     const entityUpdated = await this.service.update(id, idEntity, entity);
     res.status(entityUpdated.status).send(entityUpdated);
   };
+
+  delete = async (req,res) => {
+    const {id} = req;
+    const {idEntity} = req.params;
+    const entityDeleted = await this.service.delete(id,idEntity);
+    res.status(entityDeleted.status).send(entityDeleted);
+  }
 }
 
 module.exports = BaseController;

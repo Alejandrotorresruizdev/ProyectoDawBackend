@@ -48,7 +48,14 @@ class BaseRepository {
   }
 
   async delete(id) {
-    return await this.model.findByIdAndDelete(id);
+    return await this.model
+    .destroy({ where: { id: id } })
+    .then(() => {
+      return {status:200};
+    })
+    .catch(() => {
+      return false;
+    });
   }
 }
 

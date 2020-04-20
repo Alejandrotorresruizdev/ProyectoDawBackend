@@ -7,6 +7,7 @@ module.exports = function({PostController}) {
     router.get('/:id/all', PostController.getPostByIdUser)
     router.post('', PostController.create);
     router.put('/:idEntity',PostController.update)
+    router.delete('/:idEntity',PostController.delete)
 
     return router;
 }

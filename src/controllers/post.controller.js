@@ -12,7 +12,7 @@ class PostController extends BaseController {
     const { id } = req.params;
     const { offset,limit } = req.query;
     const getPostByIdUser = await _postService.getPostByIdUser(id,offset,limit);
-    res.send(getPostByIdUser);
+    res.status(getPostByIdUser.status).send(getPostByIdUser);
   }
 }
 
