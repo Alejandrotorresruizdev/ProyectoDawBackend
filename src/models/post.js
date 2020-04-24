@@ -21,8 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       userId: DataTypes.INTEGER,
-    },
-    {}
+    }
   );
   Post.associate = function (models) {
     Post.hasMany(models.Comment, { as: "comment" });

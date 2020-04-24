@@ -36,7 +36,6 @@ class PostService extends BaseService {
 
   async getPostByDate(offset, limit) {
 
-
     const currentEntity = await _postRepository.getPostByDate(
       offset,
       limit

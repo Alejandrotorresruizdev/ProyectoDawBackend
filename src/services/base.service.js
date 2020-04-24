@@ -56,6 +56,7 @@ class BaseService {
     if (responseFunctions.emptyId(idEntity)) return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
   
     const currentEntity = await this.repository.get(idEntity);
+    console.log(currentEntity.id)
 
     if(currentEntity.userId != id) return responseFunctions.error(CODE_UNAUTHORIZED, "No estas autorizado");
 

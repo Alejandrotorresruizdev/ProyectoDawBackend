@@ -39,9 +39,9 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   User.associate = function (models) {
-    User.hasMany(models.Post, { as: "posts" });
+    User.hasMany(models.Post, { as: "post" });
     User.hasMany(models.Comment, { as: "comment" });
-    User.hasMany(models.Likes, { as: "likes" });
+    User.hasMany(models.Likes, { as: "like" });
   };
 
   User.beforeCreate(async (user) => {

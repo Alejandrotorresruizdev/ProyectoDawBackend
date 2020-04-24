@@ -41,7 +41,7 @@ module.exports = function ({
   apiRoutes.use("/user", [checkTokenMidleware], UserRoutes);
   apiRoutes.use("/auth", AuthRoutes);
   apiRoutes.use("/post", PostRoutes);
-  apiRoutes.use("/comment", [checkTokenMidleware], CommentRoutes);
+  apiRoutes.use("/comment", CommentRoutes);
   apiRoutes.use("/like", [checkTokenMidleware], LikeRoutes);
 
   // Document path

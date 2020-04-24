@@ -42,7 +42,8 @@ class BaseRepository {
 
         return updatedEntity;
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err.errors[0].path)
         return false;
       });
   }

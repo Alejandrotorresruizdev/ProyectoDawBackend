@@ -17,12 +17,19 @@ class UserController {
   }
 
   async update(req, res) {
-    const { idusuario } = req.params;
+    const { id } = req;
     const entity = req.body;
-    const userUpdated = await _userService.update(idusuario, entity);
-
-    return await res.status(userUpdated.status).send(userUpdated);
+    const entityUpdated = await _userService.updateUser(id, entity);
+    res.status(entityUpdated.status).send(entityUpdated);
   }
+
+  async updatePassword (req,res) {
+    const { id } = req;
+    const {newPassword} = req.body;
+    const entityUpdated = await _userService.updatePassword(id, newPassword);
+    res.status(entityUpdated.status).send(entityUpdated);
+  }
+
 }
 
 module.exports = UserController;
