@@ -3,6 +3,7 @@ let _userRepository = null;
 const responseFunctions = require("../utils/responseHttp.utils");
 const jwtFunctions = require("../utils/jwt");
 const mailerFunctions = require("../utils/mailer.utils");
+var fs = require('fs');
 
 const {
   CODE_OK,
@@ -100,7 +101,7 @@ class AuthService {
     const currentEntity = await _userService.getUserByEmail(email);
 
     if (responseFunctions.notFoundEntity(currentEntity.length))
-      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+      return responseFunctions.error(CODE_NOT_FOUND, "El correo no existe");
 
     // Genero una nueva password
     const randomPassword = await jwtFunctions.generateRandomPassword();

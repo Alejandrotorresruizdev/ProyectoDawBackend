@@ -15,7 +15,7 @@ class LikeRepository extends BaseRepository {
         postId: id,
       },
       attributes: { exclude: ['UserId','userId','PostId','updatedAt'] },
-      include: [{ model: User, as: "user",attributes: [ 'id', 'full_name', 'usuario' ] }],
+      include: [{ model: User, as: "user",attributes: [ 'id', 'full_name', 'usuario','imagen' ] }],
       order: [
         ['createdAt', 'DESC'],
     ],

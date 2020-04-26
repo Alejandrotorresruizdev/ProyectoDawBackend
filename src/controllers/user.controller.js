@@ -12,8 +12,8 @@ class UserController {
   }
 
   async create(req, res) {
-     const userCreated = await _userService.create(req.body);
-    return res.status(200).send(userCreated);
+    const userCreated = await _userService.create(req.body);
+    return res.status(userCreated.status).send(userCreated);
   }
 
   async update(req, res) {
@@ -23,13 +23,19 @@ class UserController {
     res.status(entityUpdated.status).send(entityUpdated);
   }
 
-  async updatePassword (req,res) {
+  async updateAvatar(req, res) {
+    const { files,id } = req;
+    const avatar = files ? files.file : null;
+    const entityUpdated = await _userService.updateAvatar(id,avatar);
+    return res.status(entityUpdated.status).send(entityUpdated);
+  }
+
+  async updatePassword(req, res) {
     const { id } = req;
-    const {newPassword} = req.body;
+    const { newPassword } = req.body;
     const entityUpdated = await _userService.updatePassword(id, newPassword);
     res.status(entityUpdated.status).send(entityUpdated);
   }
-
 }
 
 module.exports = UserController;

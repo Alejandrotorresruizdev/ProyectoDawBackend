@@ -50,7 +50,7 @@ module.exports = function ({
   // Base api path
   router.use("/v1/api", apiRoutes);
 
-  apiRoutes.use('/uploads',[checkTokenMidleware],(express.static('uploads')));
+  apiRoutes.use('/uploads',(express.static('uploads')));
 
   router.use(NotFoundMiddleware);
   router.use(ErrorMiddleware);

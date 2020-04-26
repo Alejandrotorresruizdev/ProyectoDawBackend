@@ -6,6 +6,7 @@ module.exports = function({UserController}) {
     router.get('/', UserController.get);
     router.put('/', UserController.update);
     router.put('/password', UserController.updatePassword);
+    router.put('/avatar', UserController.updateAvatar)
     router.post('', UserController.create);
 
     return router;
