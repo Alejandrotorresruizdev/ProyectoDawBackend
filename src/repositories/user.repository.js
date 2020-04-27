@@ -48,6 +48,24 @@ class UserRepository extends BaseRepository {
 
     return userEmail;
   }
+
+  async getAllUsers(offset,limit) {
+    const listPost = _user
+    .findAndCountAll({
+      offset: parseInt(offset),
+      limit: parseInt(limit),
+      order: [["createdAt", "DESC"]],
+    })
+    .then((list) => {
+      console.log(list);
+      return list;
+    })
+    .catch((err) => {
+      return false;
+    });
+
+  return listPost;
+  }
 }
 
 module.exports = UserRepository;

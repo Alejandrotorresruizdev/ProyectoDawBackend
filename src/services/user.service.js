@@ -14,6 +14,7 @@ const {
   MESS_ID_NOT_FOUND,
   MESS_OK_PUT,
   MESS_ERROR_PUT,
+  MESS_OK_GET
 } = require("../constants/errorMessages");
 
 let _userRepository = null;
@@ -22,6 +23,16 @@ class UserService extends BaseService {
   constructor({ UserRepository }) {
     super(UserRepository);
     this.userRepository = UserRepository;
+  }
+
+
+  async getAllUsers(offset, limit) {
+    const currentEntities = await this.repository.getAllUsers(offset, limit);
+
+    if (responseFunctions.notFoundEntity(currentEntities))
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+
+    return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntities);
   }
 
   async updateUser(id, entity) {

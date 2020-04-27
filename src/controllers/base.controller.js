@@ -9,6 +9,11 @@ class BaseController {
     res.status(getEntity.status).send(getEntity);
   };
 
+  getAll = async (req, res) => {
+    const getAllEntities = await this.service.get(id);
+    res.status(getAllEntities.status).send(getAllEntities);
+  }
+
   create = async (req, res) => {
     const { id } = req;
     const entity = req.body;

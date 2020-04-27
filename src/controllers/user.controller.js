@@ -11,6 +11,12 @@ class UserController {
     return await res.status(200).send(user);
   }
 
+  async getAll(req,res){
+    const { offset,limit } = req.query;
+    const users = await _userService.getAllUsers(offset,limit);
+    return await res.status(200).send(users);
+  }
+
   async create(req, res) {
     const userCreated = await _userService.create(req.body);
     return res.status(userCreated.status).send(userCreated);
