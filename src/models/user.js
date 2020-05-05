@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       full_name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
         validate: {
           notNull: { msg: "El nombre completo del usuario es obligatorio" },
         },
@@ -15,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       usuario: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
         validate: {
           notNull: { msg: "El nombre de usuario es obligatorio" },
         },

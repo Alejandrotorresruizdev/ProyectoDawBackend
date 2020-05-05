@@ -14,7 +14,6 @@ class AuthController {
 
   async signUp(req, res) {
     const { body ,files} = req;
-
     const newUser = JSON.parse(body.user);
     const file = files ? files.files : null;
 

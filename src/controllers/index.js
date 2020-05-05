@@ -3,5 +3,6 @@ module.exports = {
   AuthController : require("./auth.controller"),
   CommentController : require("./comment.controller"),
   PostController : require('./post.controller'),
-  LikeController : require('./like.controller')
+  LikeController : require('./like.controller'),
+  AdminController: require('./admin.controller')
 };

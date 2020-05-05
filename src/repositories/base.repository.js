@@ -27,9 +27,9 @@ class BaseRepository {
       .catch(err => {
         const response = {
           status: CODE_NOT_FOUND,
-          result: err.errors[0].path
+          result: err
         };
-
+        console.log(err)
         return response;
       });
   }

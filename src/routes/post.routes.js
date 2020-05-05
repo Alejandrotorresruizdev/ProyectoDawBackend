@@ -7,10 +7,10 @@ const {
 module.exports = function({PostController}) {
     const router = Router();
 
-    router.get('/:id', PostController.get);
+    router.get('/:id', PostController.getPostById);
     router.get('/:id/all',[checkTokenMidleware], PostController.getPostByIdUser)
     router.get('/',PostController.getPostByDate);
-    router.post('',[checkTokenMidleware], PostController.create);
+    router.post('', [checkTokenMidleware],PostController.createPost);
     router.put('/:idEntity',[checkTokenMidleware],PostController.update)
     router.delete('/:idEntity',[checkTokenMidleware],PostController.delete)
 

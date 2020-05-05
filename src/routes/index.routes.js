@@ -3,5 +3,6 @@ module.exports = {
     CommentRoutes : require('./comment.routes'),
     PostRoutes : require('./post.routes'),
     AuthRoutes : require('./auth.routes'),
-    LikeRoutes : require('./like.routes')
+    LikeRoutes : require('./like.routes'),
+    AdminRoutes : require('./admin.routes')
 }

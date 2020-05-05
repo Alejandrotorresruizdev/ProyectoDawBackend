@@ -8,6 +8,25 @@ class PostController extends BaseController {
     _postService = PostService;
   }
 
+
+  async getPostById(req, res){
+    const { id } = req.params;
+    const getEntity = await _postService.getPostById(id);
+    res.status(getEntity.status).send(getEntity);
+  }
+
+  async createPost(req, res){
+    const { id } = req;
+    const {body,files} = req;
+    const newPost = JSON.parse(body.post);
+    const file = files ? files.files : null;
+    newPost.userId = id;
+    const createdPost = await _postService.createPost(newPost,file);
+
+    return res.status(createdPost.status).send(createdPost);
+
+  }
+
   async getPostByIdUser(req, res) {
     const { id } = req.params;
     const { offset,limit } = req.query;

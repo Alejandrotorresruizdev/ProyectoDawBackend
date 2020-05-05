@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
       );
 
       req.id = decodedToken.user.id;
-
+      req.rol = decodedToken.user.roles_idroles
     next();
   });
 };

@@ -14,7 +14,8 @@ module.exports = {
       },
       usuario: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       imagen:{
         type: Sequelize.STRING
@@ -24,7 +25,8 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
+        unique: true,
+        allowNull: false
       },
       roles_idroles: {
         type: Sequelize.INTEGER,

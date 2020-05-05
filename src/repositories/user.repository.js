@@ -54,6 +54,7 @@ class UserRepository extends BaseRepository {
     .findAndCountAll({
       offset: parseInt(offset),
       limit: parseInt(limit),
+      attributes: { exclude: ["imagen", "password","updatedAt"] },
       order: [["createdAt", "DESC"]],
     })
     .then((list) => {

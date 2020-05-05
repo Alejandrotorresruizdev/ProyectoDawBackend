@@ -18,6 +18,33 @@ class PostService extends BaseService {
     _postRepository = PostRepository;
   }
 
+  async getPostById(id){
+    if (responseFunctions.emptyId(id))
+    return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
+
+    const currentEntity = await _postRepository.getPostById(id);
+
+    if (responseFunctions.notFoundEntity(currentEntity))
+      return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);
+
+    return responseFunctions.error(CODE_OK, MESS_OK_GET, currentEntity);
+  }
+
+  async createPost(entity, file) {
+    entity.imagen = file;
+
+    if(file){
+      try {
+        const dateName = Date.now();
+        file.mv(`./uploads/${dateName}.jpg`);
+        entity.imagen = `/uploads/${dateName}.jpg`;
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    return await _postRepository.create(entity);
+  }
+
   async getPostByIdUser(id, offset, limit) {
     if (responseFunctions.emptyId(id))
       return responseFunctions.error(CODE_NOT_FOUND, MESS_EMPTY_ID);
@@ -35,11 +62,7 @@ class PostService extends BaseService {
   }
 
   async getPostByDate(offset, limit) {
-
-    const currentEntity = await _postRepository.getPostByDate(
-      offset,
-      limit
-    );
+    const currentEntity = await _postRepository.getPostByDate(offset, limit);
 
     if (currentEntity === [])
       return responseFunctions.error(CODE_NOT_FOUND, MESS_ID_NOT_FOUND);

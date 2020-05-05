@@ -8,6 +8,22 @@ class PostRepository extends BaseRepository {
     _postModel = Post;
   }
 
+  async getPostById(id) {
+    return await _postModel.findOne({
+      where: {
+        id: id,
+      },
+      attributes: { exclude: ["UserId", "userId"] },
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["id", "full_name", "usuario"],
+        },
+      ],
+    });
+  }
+
   async getPostByIdUser(id, offset, limit) {
     const listPost = _postModel
       .findAndCountAll({

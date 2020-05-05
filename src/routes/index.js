@@ -9,6 +9,7 @@ require("express-async-errors");
 const {
   checkTokenMidleware,
   NotFoundMiddleware,
+  CheckRolMiddleware,
   ErrorMiddleware,
 } = require("../middlewares");
 
@@ -22,6 +23,7 @@ module.exports = function ({
   CommentRoutes,
   PostRoutes,
   LikeRoutes,
+  AdminRoutes
 }) {
   const router = express.Router();
   const apiRoutes = express.Router();
@@ -43,6 +45,7 @@ module.exports = function ({
   apiRoutes.use("/post", PostRoutes);
   apiRoutes.use("/comment", CommentRoutes);
   apiRoutes.use("/like", [checkTokenMidleware], LikeRoutes);
+  apiRoutes.use("/admin", [checkTokenMidleware,CheckRolMiddleware], AdminRoutes);
 
   // Document path
   apiRoutes.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerDocument));

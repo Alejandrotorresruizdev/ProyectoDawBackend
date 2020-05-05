@@ -19,7 +19,7 @@ class CommentRepository extends BaseRepository {
           {
             model: User,
             as: "user",
-            attributes: ["id", "full_name", "usuario"],
+            attributes: ["id", "full_name", "usuario","createdAt","imagen"],
           },
           {
             model: Post,
