@@ -31,12 +31,6 @@ module.exports = function ({
   apiRoutes
     .use(express.json({extended: true }))
     .use(helmet())
-    .use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-      next();
-    })
     .use(
       fileupload({
         createParentPath: true,
@@ -58,7 +52,10 @@ module.exports = function ({
   // Base api path
   router.use("/v1/api", apiRoutes);
 
-  // router.use(cors({ credentials: true, origin: true }));
+  router.use(cors({ credentials: true, origin: true }));
+  router.options("*", cors());
+ 
+
 
   apiRoutes.use('/uploads',(express.static('uploads')));
 
