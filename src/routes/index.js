@@ -30,7 +30,6 @@ module.exports = function ({
 
   apiRoutes
     .use(express.json())
-    .use(cors())
     .use(helmet())
     .use(
       fileupload({
@@ -38,7 +37,7 @@ module.exports = function ({
       })
     )
     .use(compression());
-  apiRoutes.options('*', cors());
+ 
   // Model path
   apiRoutes.use("/user", [checkTokenMidleware], UserRoutes);
   apiRoutes.use("/auth", AuthRoutes);
@@ -52,6 +51,9 @@ module.exports = function ({
 
   // Base api path
   router.use("/v1/api", apiRoutes);
+
+  router.use(cors({ credentials: true, origin: true }));
+  router.options("*", cors());
 
   apiRoutes.use('/uploads',(express.static('uploads')));
 
