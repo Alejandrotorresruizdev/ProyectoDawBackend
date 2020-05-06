@@ -29,7 +29,7 @@ module.exports = function ({
   const apiRoutes = express.Router();
 
   router.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://hardcore-lamarr-3cc5d5.netlify.app/"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept , authorization");
     res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     next();
@@ -61,7 +61,13 @@ module.exports = function ({
 
   // router.use(cors({ credentials: true, origin: true }));
   // use.options("*", cors());
-
+  // app.use(cors({
+  //   'allowedHeaders': ['authorization', 'Content-Type'],
+  //   'origin': '*',
+  //   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   'preflightContinue': false
+  // }));
+  
 
 
   apiRoutes.use('/uploads',(express.static('uploads')));
