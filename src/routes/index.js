@@ -28,6 +28,13 @@ module.exports = function ({
   const router = express.Router();
   const apiRoutes = express.Router();
 
+  router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://hardcore-lamarr-3cc5d5.netlify.app/"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    next();
+  });
+  
   apiRoutes
     .use(express.json({extended: true }))
     .use(helmet())
@@ -36,7 +43,6 @@ module.exports = function ({
         createParentPath: true,
       })
     )
-    .options("*", cors())
     .use(compression());
  
   // Model path
@@ -51,7 +57,12 @@ module.exports = function ({
   apiRoutes.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
   // Base api path
-  router.use("/v1/api", apiRoutes); 
+  router.use("/v1/api", apiRoutes);
+
+  // router.use(cors({ credentials: true, origin: true }));
+  // use.options("*", cors());
+
+
 
   apiRoutes.use('/uploads',(express.static('uploads')));
 
