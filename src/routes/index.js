@@ -36,6 +36,7 @@ module.exports = function ({
         createParentPath: true,
       })
     )
+    .options("*", cors())
     .use(compression());
  
   // Model path
@@ -50,12 +51,7 @@ module.exports = function ({
   apiRoutes.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
   // Base api path
-  router.use("/v1/api", apiRoutes);
-
-  router.use(cors({ credentials: true, origin: true }));
-  router.options("*", cors());
- 
-
+  router.use("/v1/api", apiRoutes); 
 
   apiRoutes.use('/uploads',(express.static('uploads')));
 
