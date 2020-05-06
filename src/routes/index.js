@@ -38,7 +38,7 @@ module.exports = function ({
       })
     )
     .use(compression());
-
+  apiRoutes.options('*', cors());
   // Model path
   apiRoutes.use("/user", [checkTokenMidleware], UserRoutes);
   apiRoutes.use("/auth", AuthRoutes);
