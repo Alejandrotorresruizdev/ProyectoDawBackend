@@ -73,10 +73,6 @@ class AuthService {
 
     const entityCreated = await _userService.create(entity);
 
-    console.log("entityCreated.errors.message")
-    console.log(entityCreated.message.errors[0].message)
-    // console.log(entityCreated.message.fields[0])
-
     // Si hay un error enviamos un mensaje de error.
     if (entityCreated.status === CODE_BAD_REQUEST) {
       let errorMsg;

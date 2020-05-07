@@ -9,6 +9,7 @@ const {
 } = require("../constants/httpCodes");
 
 module.exports = (req, res, next) => {
+  console.log(rol)
   const { rol } = req;
 
   if (rol === 1) {
