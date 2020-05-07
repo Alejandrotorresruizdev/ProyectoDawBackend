@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       full_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique:true,
         validate: {
           notNull: { msg: "El nombre completo del usuario es obligatorio" },
         },
@@ -16,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       usuario: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique:true,
+        unique: {
+          args: true,
+          msg: 'El usuario ya existe'
+        },
         validate: {
           notNull: { msg: "El nombre de usuario es obligatorio" },
         },
@@ -31,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: {
+          args: true,
+          msg: 'El email ya existe'
+        },
       },
       roles_idroles: {
         type: DataTypes.INTEGER,

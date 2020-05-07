@@ -56,7 +56,8 @@ class AuthService {
   }
 
    async signUp(entity, file) {
-    
+ 
+
     if(file){
       try {
         const dateName = Date.now();
@@ -67,16 +68,19 @@ class AuthService {
       }
     }
 
+    // console.log(entity.full_name)
+    // return entity;
+
     const entityCreated = await _userService.create(entity);
+
+    console.log("entityCreated.errors.message")
+    console.log(entityCreated.message.errors[0].message)
+    // console.log(entityCreated.message.fields[0])
 
     // Si hay un error enviamos un mensaje de error.
     if (entityCreated.status === CODE_BAD_REQUEST) {
       let errorMsg;
-      if (entityCreated.message == "usuario_UNIQUE")
-        errorMsg = "El nombre de usuario ya esta en uso";
-      if (entityCreated.message == "email_UNIQUE")
-        errorMsg = "El nombre del email ya esta en uso";
-
+      errorMsg = entityCreated.message.errors[0].message
       return await responseFunctions.error(
         CODE_BAD_REQUEST,
         MESS_ERROR_POST,
